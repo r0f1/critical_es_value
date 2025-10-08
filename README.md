@@ -1,0 +1,1 @@
+uv run jupyter kernelspec install /home/flo/R/x86_64-pc-linux-gnu-library/4.1/IRkernel/kernelspec --name 'R' --user
