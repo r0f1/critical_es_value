@@ -12,6 +12,4 @@ wheels/
 # Jupyter
 .ipynb_checkpoints
 
-
-data.csv
 *.ipynb
