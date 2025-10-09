@@ -67,7 +67,9 @@ def critical_from_one_sample_ttest(
     """Calculate critical effect size values from a one-sample t-test.
 
     Returns a DataFrame with the following columns:
-     - t_critical: Critical t-value
+     - T: t-value of the test statistic
+     - dof: Degrees of freedom
+     - T_critical: Critical t-value
      - d: Cohen's d
      - d_critical: Critical value for Cohen's d
      - b_critical: Critical value for the raw mean difference
@@ -91,33 +93,117 @@ def critical_from_one_sample_ttest(
         correction=False,
         confidence=confidence,
     ).iloc[0]
-    t = t_test_result["T"]
+
+    alpha = get_alpha(confidence, alternative)
     dof = t_test_result.dof
 
     n = len(x)
-    scale = np.sqrt(1 / n)
-    d = t * scale
+    factor = np.sqrt(1 / n)
 
-    alpha = get_alpha(confidence, alternative)
+    t = t_test_result["T"]
+    d = t * factor
+
     tc = np.abs(stats.t.ppf(alpha, dof))
-    dc = tc * scale
-
-    se = np.std(x, ddof=1) / np.sqrt(n)
-    bc = tc * se
+    dc = tc * factor
 
     j = get_J(dof)
-    g = d * j
-    gc = dc * j
 
     return pd.DataFrame(
         [
             {
-                "t_critical": tc,
+                "T": t,
+                "dof": dof,
+                "T_critical": tc,
                 "d": d,
                 "d_critical": dc,
-                "b_critical": bc,
-                "g": g,
-                "g_critical": gc,
+                "b_critical": tc * np.std(x, ddof=1) / np.sqrt(n),
+                "g": d * j,
+                "g_critical": dc * j,
+            }
+        ],
+        index=["critical"],
+    )
+
+
+def _critical_from_two_sample_ttest_paired(
+    x: ArrayLike,
+    y: ArrayLike,
+    alternative: str,
+    correction: bool,
+    confidence: float,
+) -> pd.DataFrame:
+    """Calculate critical effect size values from a PAIRED two-sample t-test.
+
+    Returns a DataFrame with the following columns:
+     - T: t-value of the test statistic
+     - dof: Degrees of freedom
+     - T_critical: Critical t-value
+     - d: Cohen's d
+     - d_critical: Critical value for Cohen's d
+     - b_critical: Critical value for the raw mean difference
+     - g: Hedges' g
+     - g_critical: Critical value for Hedges' g
+     - dz: Cohen's dz
+     - dz_critical: Critical value for Cohen's dz
+     - gz: Hedges' gz
+     - gz_critical: Critical value for Hedges' gz
+
+    Args:
+        x (array-like): Sample data for group 1.
+        y (array-like): Sample data for group 2.
+        alternative (str): The alternative hypothesis. Either "one-sided" or "two-sided".
+        correction (bool): Whether to apply Welch's correction for unequal variances.
+        confidence (float): Confidence level between 0 and 1 (exclusive).
+
+    Returns:
+        pd.DataFrame: A DataFrame containing critical effect size values.
+    """
+
+    if len(x) != len(y):
+        raise ValueError("For paired tests, x and y must have the same length.")
+
+    t_test_result = pingouin.ttest(
+        x=x,
+        y=y,
+        paired=True,
+        alternative=alternative,
+        correction=correction,
+        confidence=confidence,
+    ).iloc[0]
+
+    alpha = get_alpha(confidence, alternative)
+    dof = t_test_result.dof
+    n = len(x)
+
+    r12 = np.corrcoef(x, y)[0, 1]
+    factor1 = np.sqrt(1 / n)
+    factor2 = np.sqrt(2 * (1 - r12))
+
+    t = t_test_result["T"]
+    dz = t * factor1
+    d = dz * factor2
+
+    tc = np.abs(stats.t.ppf(alpha, dof))
+    dzc = tc * factor1
+    dc = dzc * factor2
+
+    j = get_J(dof)
+
+    return pd.DataFrame(
+        [
+            {
+                "T": t,
+                "dof": dof,
+                "T_critical": tc,
+                "d": d,
+                "d_critical": dc,
+                "b_critical": tc * np.std(x - y, ddof=1) / np.sqrt(n),
+                "g": d * j,
+                "g_critical": dc * j,
+                "dz": dz,
+                "dz_critical": dzc,
+                "gz": dz * j,
+                "gz_critical": dzc * j,
             }
         ],
         index=["critical"],
@@ -132,10 +218,12 @@ def critical_from_two_sample_ttest(
     correction: bool,
     confidence: float,
 ) -> pd.DataFrame:
-    """Calculate critical effect size values from a two-sample t-test.
+    """Calculate critical effect size values from a paired or unpaired two-sample t-test.
 
     Returns a DataFrame with the following columns:
-     - t_critical: Critical t-value
+     - T: t-value of the test statistic
+     - dof: Degrees of freedom
+     - T_critical: Critical t-value
      - d: Cohen's d
      - d_critical: Critical value for Cohen's d
      - b_critical: Critical value for the raw mean difference
@@ -154,6 +242,15 @@ def critical_from_two_sample_ttest(
         pd.DataFrame: A DataFrame containing critical effect size values.
     """
 
+    if paired:
+        return _critical_from_two_sample_ttest_paired(
+            x=x,
+            y=y,
+            alternative=alternative,
+            correction=correction,
+            confidence=confidence,
+        )
+
     t_test_result = pingouin.ttest(
         x=x,
         y=y,
@@ -162,17 +259,20 @@ def critical_from_two_sample_ttest(
         correction=correction,
         confidence=confidence,
     ).iloc[0]
-    t = t_test_result["T"]
+
+    alpha = get_alpha(confidence, alternative)
     dof = t_test_result.dof
 
     n1 = len(x)
     n2 = len(y)
-    scale = np.sqrt(1 / n1 + 1 / n2)
-    d = t * scale
 
-    alpha = get_alpha(confidence, alternative)
+    factor = np.sqrt(1 / n1 + 1 / n2)
+
+    t = t_test_result["T"]
+    d = t * factor
+
     tc = np.abs(stats.t.ppf(alpha, dof))
-    dc = tc * scale
+    dc = tc * factor
 
     s1 = np.std(x, ddof=1)
     s2 = np.std(y, ddof=1)
@@ -180,23 +280,21 @@ def critical_from_two_sample_ttest(
     if correction:
         se = np.sqrt((s1**2 / n1) + (s2**2 / n2))
     else:
-        se = np.sqrt((s1**2 * (n1 - 1) + s2**2 * (n2 - 1)) / (n1 + n2 - 2))
-
-    bc = tc * se
+        se = np.sqrt((s1**2 * (n1 - 1) + s2**2 * (n2 - 1)) / (n1 + n2 - 2)) * factor
 
     j = get_J(dof)
-    g = d * j
-    gc = dc * j
 
     return pd.DataFrame(
         [
             {
-                "t_critical": tc,
+                "T": t,
+                "dof": dof,
+                "T_critical": tc,
                 "d": d,
                 "d_critical": dc,
-                "b_critical": bc,
-                "g": g,
-                "g_critical": gc,
+                "b_critical": tc * se,
+                "g": d * j,
+                "g_critical": dc * j,
             }
         ],
         index=["critical"],

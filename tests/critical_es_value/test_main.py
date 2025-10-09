@@ -21,7 +21,7 @@ def test_get_alpha(confidence, alternative, expected, match):
             main.get_alpha(confidence, alternative)
     else:
         alpha = main.get_alpha(confidence, alternative)
-        assert alpha == pytest.approx(expected, abs=1e-6)
+        assert alpha == pytest.approx(expected)
 
 
 @pytest.mark.parametrize(
@@ -33,7 +33,7 @@ def test_get_alpha(confidence, alternative, expected, match):
     ],
 )
 def test_get_J(dof, expected):
-    assert main.get_J(dof) == pytest.approx(expected, abs=1e-6)
+    assert main.get_J(dof) == pytest.approx(expected)
 
 
 @pytest.mark.parametrize(
@@ -74,11 +74,11 @@ def test_critical_from_one_sample_ttest(
         alternative=alternative,
         confidence=confidence,
     ).iloc[0]
-    assert result["d"] == pytest.approx(expected["d"], abs=1e-6)
-    assert result["d_critical"] == pytest.approx(expected["d_critical"], abs=1e-6)
-    assert result["b_critical"] == pytest.approx(expected["b_critical"], abs=1e-6)
-    assert result["g"] == pytest.approx(expected["g"], abs=1e-6)
-    assert result["g_critical"] == pytest.approx(expected["g_critical"], abs=1e-6)
+    assert result["d"] == pytest.approx(expected["d"])
+    assert result["d_critical"] == pytest.approx(expected["d_critical"])
+    assert result["b_critical"] == pytest.approx(expected["b_critical"])
+    assert result["g"] == pytest.approx(expected["g"])
+    assert result["g_critical"] == pytest.approx(expected["g_critical"])
 
 
 @pytest.mark.parametrize(
@@ -96,6 +96,20 @@ def test_critical_from_one_sample_ttest(
                 "b_critical": 0.5183234,
                 "g": 0.5006344,
                 "g_critical": 0.5101447,
+            },
+        ),
+        (
+            "test_dataset1",
+            False,
+            "two-sided",
+            False,
+            0.95,
+            {
+                "d": 0.5072601,
+                "d_critical": 0.5168412,
+                "b_critical": 0.5182682,
+                "g": 0.5006675,
+                "g_critical": 0.5101241,
             },
         ),
         (
@@ -125,6 +139,7 @@ def test_critical_from_two_sample_ttest(
     expected,
 ):
     data = test_dataset1 if dataset == "test_dataset1" else test_dataset2
+    print(data)
     result = main.critical_from_two_sample_ttest(
         x=data["x"],
         y=data["y"],
@@ -133,8 +148,9 @@ def test_critical_from_two_sample_ttest(
         correction=correction,
         confidence=confidence,
     ).iloc[0]
-    assert result["d"] == pytest.approx(expected["d"], abs=1e-6)
-    assert result["d_critical"] == pytest.approx(expected["d_critical"], abs=1e-6)
-    assert result["b_critical"] == pytest.approx(expected["b_critical"], abs=1e-6)
-    assert result["g"] == pytest.approx(expected["g"], abs=1e-6)
-    assert result["g_critical"] == pytest.approx(expected["g_critical"], abs=1e-6)
+    print(result)
+    assert result["d"] == pytest.approx(expected["d"])
+    assert result["d_critical"] == pytest.approx(expected["d_critical"])
+    assert result["b_critical"] == pytest.approx(expected["b_critical"])
+    assert result["g"] == pytest.approx(expected["g"])
+    assert result["g_critical"] == pytest.approx(expected["g_critical"])
