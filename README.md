@@ -1,5 +1,6 @@
 # critical_es_value
 
+Calculate critical effect size values.
 
 ## Usage
 
