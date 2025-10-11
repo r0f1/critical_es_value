@@ -7,14 +7,14 @@ Calculate critical effect size values.
 ```python
 import numpy as np
 import pingouin as pg
-from critical_es_value import critical_from_two_sample_ttest
+from critical_es_value import critical_for_two_sample_ttest
 
 np.random.seed(123)
 mean, cov, n = [4, 5], [(1, .6), (.6, 1)], 30
 x, y = np.random.multivariate_normal(mean, cov, n).T
 
 pg.ttest(x, y, paired=False, alternative="two-sided", correction=True, confidence=0.95)
-critical_from_two_sample_ttest(x, y, paired=False, alternative="two-sided", correction=True, confidence=0.95)
+critical_for_two_sample_ttest(x, y, paired=False, alternative="two-sided", correction=True, confidence=0.95)
 ```
 |        |        T |     dof | alternative   |      p-val | CI95%         |   cohen-d |   BF10 |    power |
 |:-------|---------:|--------:|:--------------|-----------:|:--------------|----------:|-------:|---------:|

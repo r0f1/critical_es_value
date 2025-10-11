@@ -1,3 +1,5 @@
+from typing import Union
+
 import numpy as np
 import pandas as pd
 import pingouin
@@ -7,12 +9,35 @@ from scipy import stats
 from critical_es_value import utils
 
 
-def critical_from_one_sample_ttest(
+def determine_welch_correction(correction: Union[bool, str], n1: int, n2: int) -> bool:
+    """Determine whether to apply Welch's correction for unequal variances.
+
+    Args:
+        correction (bool or str): If True, always apply Welch's correction.
+                                  If False, never apply Welch's correction.
+                                  If "auto", apply Welch's correction only if sample sizes are unequal.
+        n1 (int): Sample size of group 1.
+        n2 (int): Sample size of group 2.
+
+    Returns:
+        bool: Whether to apply Welch's correction.
+
+    Raises:
+        ValueError: If `correction` is not one of True, False, or "auto".
+    """
+    if correction not in (True, False, "auto"):
+        raise ValueError("correction must be one of True, False, or 'auto'")
+    if correction is True or (correction == "auto" and n1 != n2):
+        return True
+    return False
+
+
+def critical_for_one_sample_ttest(
     x: ArrayLike,
     alternative: str = "two-sided",
     confidence: float = 0.95,
 ) -> pd.DataFrame:
-    """Calculate critical effect size values from a one-sample t-test.
+    """Calculate critical effect size values for a one-sample t-test.
 
     Returns a DataFrame with the following columns:
      - T: t-value of the test statistic
@@ -73,14 +98,13 @@ def critical_from_one_sample_ttest(
     )
 
 
-def _critical_from_two_sample_ttest_paired(
+def _critical_for_two_sample_ttest_paired(
     x: ArrayLike,
     y: ArrayLike,
     alternative: str = "two-sided",
-    correction: bool = False,
     confidence: float = 0.95,
 ) -> pd.DataFrame:
-    """Calculate critical effect size values from a PAIRED two-sample t-test.
+    """Calculate critical effect size values for a PAIRED two-sample t-test.
 
     Returns a DataFrame with the following columns:
      - T: t-value of the test statistic
@@ -100,7 +124,6 @@ def _critical_from_two_sample_ttest_paired(
         x (array-like): Sample data for group 1.
         y (array-like): Sample data for group 2.
         alternative (str): The alternative hypothesis. Either "one-sided" or "two-sided". Default is "two-sided".
-        correction (bool): Whether to apply Welch's correction for unequal variances. Default is False.
         confidence (float): Confidence level between 0 and 1 (exclusive). Default is 0.95.
 
     Returns:
@@ -115,7 +138,7 @@ def _critical_from_two_sample_ttest_paired(
         y=y,
         paired=True,
         alternative=alternative,
-        correction=correction,
+        correction=False,
         confidence=confidence,
     ).iloc[0]
 
@@ -158,15 +181,15 @@ def _critical_from_two_sample_ttest_paired(
     )
 
 
-def critical_from_two_sample_ttest(
+def critical_for_two_sample_ttest(
     x: ArrayLike,
     y: ArrayLike,
     paired: bool = False,
     alternative: str = "two-sided",
-    correction: bool = False,
+    correction: Union[bool, str] = "auto",
     confidence: float = 0.95,
 ) -> pd.DataFrame:
-    """Calculate critical effect size values from a paired or unpaired two-sample t-test.
+    """Calculate critical effect size values for a paired or an unpaired two-sample t-test.
 
     Returns a DataFrame with the following columns:
      - T: t-value of the test statistic
@@ -183,7 +206,10 @@ def critical_from_two_sample_ttest(
         y (array-like): Sample data for group 2.
         paired (bool): Whether the samples are paired. Default is False.
         alternative (str): The alternative hypothesis. Either "one-sided" or "two-sided". Default is "two-sided".
-        correction (bool): Whether to apply Welch's correction for unequal variances. Default is False.
+        correction (bool): For unpaired two sample T-tests, specify whether or not to correct for unequal variances
+            using Welch separate variances T-test. If "auto", it will automatically uses Welch T-test when the sample
+            sizes are unequal. For paired T-tests, this parameter is ignored and no correction is performed. Default
+            is "auto".
         confidence (float): Confidence level between 0 and 1 (exclusive). Default is 0.95.
 
     Returns:
@@ -191,13 +217,16 @@ def critical_from_two_sample_ttest(
     """
 
     if paired:
-        return _critical_from_two_sample_ttest_paired(
+        return _critical_for_two_sample_ttest_paired(
             x=x,
             y=y,
             alternative=alternative,
-            correction=correction,
             confidence=confidence,
         )
+
+    n1 = len(x)
+    n2 = len(y)
+    correction = determine_welch_correction(correction, n1=n1, n2=n2)
 
     t_test_result = pingouin.ttest(
         x=x,
@@ -210,9 +239,6 @@ def critical_from_two_sample_ttest(
 
     alpha = utils.get_alpha(confidence, alternative)
     dof = t_test_result.dof
-
-    n1 = len(x)
-    n2 = len(y)
 
     factor = np.sqrt(1 / n1 + 1 / n2)
 

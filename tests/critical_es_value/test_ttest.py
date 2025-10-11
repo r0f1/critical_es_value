@@ -4,6 +4,29 @@ from critical_es_value import ttest
 
 
 @pytest.mark.parametrize(
+    "correction, n1, n2, expected, match",
+    [
+        (True, 10, 10, True, None),
+        (True, 10, 15, True, None),
+        (False, 10, 10, False, None),
+        (False, 10, 15, False, None),
+        ("auto", 10, 10, False, None),
+        ("auto", 10, 15, True, None),
+        ("auto", 15, 10, True, None),
+        ("invalid", 10, 10, None, r"correction must be one of True, False, or 'auto'"),
+        ("invalid", 10, 15, None, r"correction must be one of True, False, or 'auto'"),
+    ],
+)
+def test_determine_welch_correction(correction, n1, n2, expected, match):
+    if match:
+        with pytest.raises(ValueError, match=match):
+            ttest.determine_welch_correction(correction, n1=n1, n2=n2)
+    else:
+        result = ttest.determine_welch_correction(correction, n1=n1, n2=n2)
+        assert result == expected
+
+
+@pytest.mark.parametrize(
     "dataset, alternative, confidence, expected",
     [
         (
@@ -32,11 +55,11 @@ from critical_es_value import ttest
         ),
     ],
 )
-def test_critical_from_one_sample_ttest(
+def test_critical_for_one_sample_ttest(
     test_dataset1, test_dataset2, dataset, alternative, confidence, expected
 ):
     data = test_dataset1 if dataset == "test_dataset1" else test_dataset2
-    result = ttest.critical_from_one_sample_ttest(
+    result = ttest.critical_for_one_sample_ttest(
         x=data["x"],
         alternative=alternative,
         confidence=confidence,
@@ -95,7 +118,7 @@ def test_critical_from_one_sample_ttest(
         ),
     ],
 )
-def test_critical_from_two_sample_ttest(
+def test_critical_for_two_sample_ttest(
     test_dataset1,
     test_dataset2,
     dataset,
@@ -107,7 +130,7 @@ def test_critical_from_two_sample_ttest(
 ):
     data = test_dataset1 if dataset == "test_dataset1" else test_dataset2
     print(data)
-    result = ttest.critical_from_two_sample_ttest(
+    result = ttest.critical_for_two_sample_ttest(
         x=data["x"],
         y=data["y"],
         paired=paired,
