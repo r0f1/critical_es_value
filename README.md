@@ -13,18 +13,32 @@ np.random.seed(123)
 mean, cov, n = [4, 5], [(1, .6), (.6, 1)], 30
 x, y = np.random.multivariate_normal(mean, cov, n).T
 
+pg.ttest(x, y)
+critical_for_two_sample_ttest(x, y)
+```
+```
+|        |        T |   dof | alternative   |     p-val | CI95%         |   cohen-d |   BF10 |    power |
+|:-------|---------:|------:|:--------------|----------:|:--------------|----------:|-------:|---------:|
+| T-test | -3.40071 |    58 | two-sided     | 0.0012224 | [-1.68 -0.43] |  0.878059 | 26.155 | 0.916807 |
+
+
+|          |        T |   dof |   T_critical |         d |   d_critical |   b_critical |         g |   g_critical |
+|:---------|---------:|------:|-------------:|----------:|-------------:|-------------:|----------:|-------------:|
+| critical | -3.40071 |    58 |      2.00172 | -0.878059 |     0.516841 |      0.62077 | -0.866647 |     0.510124 |
+```
+
+```python
 pg.ttest(x, y, paired=False, alternative="two-sided", correction=True, confidence=0.95)
-critical_for_two_sample_ttest(x, y, paired=False, alternative="two-sided", correction=True, confidence=0.95)
+critical_from_two_sample_ttest(x, y, paired=False, alternative="two-sided", correction=True, confidence=0.95)
+```
 ```
 |        |        T |     dof | alternative   |      p-val | CI95%         |   cohen-d |   BF10 |    power |
 |:-------|---------:|--------:|:--------------|-----------:|:--------------|----------:|-------:|---------:|
 | T-test | -3.40071 | 55.7835 | two-sided     | 0.00124841 | [-1.68 -0.43] |  0.878059 | 26.155 | 0.916807 |
-
-
 |          |        T |     dof |   T_critical |         d |   d_critical |   b_critical |         g |   g_critical |
 |:---------|---------:|--------:|-------------:|----------:|-------------:|-------------:|----------:|-------------:|
 | critical | -3.40071 | 55.7835 |      2.00341 | -0.878059 |     0.517279 |     0.621295 | -0.866191 |     0.510288 |
-
+```
 
 ## Acknowlegement
 
