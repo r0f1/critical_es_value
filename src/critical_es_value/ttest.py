@@ -51,7 +51,7 @@ def critical_for_one_sample_ttest(
 
     Args:
         x (array-like): Sample data.
-        alternative (str): The alternative hypothesis. Either "one-sided" or "two-sided". Default is "two-sided".
+        alternative (str): The alternative hypothesis. Either "two-sided", "greater", or "less". Default is "two-sided".
         confidence (float): Confidence level between 0 and 1 (exclusive). Default is 0.95.
 
     Returns:
@@ -123,7 +123,7 @@ def _critical_for_two_sample_ttest_paired(
     Args:
         x (array-like): Sample data for group 1.
         y (array-like): Sample data for group 2.
-        alternative (str): The alternative hypothesis. Either "one-sided" or "two-sided". Default is "two-sided".
+        alternative (str): The alternative hypothesis. Either "two-sided", "greater", or "less". Default is "two-sided".
         confidence (float): Confidence level between 0 and 1 (exclusive). Default is 0.95.
 
     Returns:
@@ -205,7 +205,7 @@ def critical_for_two_sample_ttest(
         x (array-like): Sample data for group 1.
         y (array-like): Sample data for group 2.
         paired (bool): Whether the samples are paired. Default is False.
-        alternative (str): The alternative hypothesis. Either "one-sided" or "two-sided". Default is "two-sided".
+        alternative (str): The alternative hypothesis. Either "two-sided", "greater", or "less". Default is "two-sided".
         correction (bool): For unpaired two sample T-tests, specify whether or not to correct for unequal variances
             using Welch separate variances T-test. If "auto", it will automatically uses Welch T-test when the sample
             sizes are unequal. For paired T-tests, this parameter is ignored and no correction is performed. Default

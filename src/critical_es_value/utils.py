@@ -7,26 +7,26 @@ def get_alpha(confidence: float, alternative: str) -> float:
 
     Args:
         confidence (float): Confidence level between 0 and 1 (exclusive).
-        alternative (str): The alternative hypothesis. Either "one-sided" or "two-sided".
+        alternative (str): The alternative hypothesis. Either "two-sided", "greater", or "less".
 
     Returns:
         float: The significance level (alpha).
 
     Raises:
         ValueError: If `confidence` is not in (0, 1)
-        ValueError: If `alternative` is not one of "one-sided" or "two-sided".
+        ValueError: If `alternative` is not one of "two-sided", "greater", or "less".
 
     Examples:
-        >>> get_alpha(0.95, "one-sided")
-        0.05
         >>> get_alpha(0.95, "two-sided")
         0.025
+        >>> get_alpha(0.95, "less")
+        0.05
     """
 
     if confidence <= 0 or confidence >= 1:
         raise ValueError("confidence must be in (0, 1)")
-    if alternative not in ("one-sided", "two-sided"):
-        raise ValueError("alternative must be one of 'one-sided' or 'two-sided'")
+    if alternative not in ("two-sided", "greater", "less"):
+        raise ValueError("alternative must be one of 'two-sided', 'greater', or 'less'")
 
     alpha = 1 - confidence
 

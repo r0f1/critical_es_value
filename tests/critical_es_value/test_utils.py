@@ -6,13 +6,18 @@ from critical_es_value import utils
 @pytest.mark.parametrize(
     "confidence, alternative, expected, match",
     [
-        (0.90, "one-sided", 0.10, None),
-        (0.95, "one-sided", 0.05, None),
+        (0.90, "less", 0.10, None),
+        (0.95, "greater", 0.05, None),
         (0.90, "two-sided", 0.05, None),
         (0.95, "two-sided", 0.025, None),
         (0, "one-sided", 0, r"confidence must be in \(0, 1\)"),
         (1, "one-sided", 0, r"confidence must be in \(0, 1\)"),
-        (0.95, "invalid", 0, r"alternative must be one of 'one-sided' or 'two-sided'"),
+        (
+            0.95,
+            "invalid",
+            0,
+            r"alternative must be one of 'two-sided', 'greater', or 'less'",
+        ),
     ],
 )
 def test_get_alpha(confidence, alternative, expected, match):
