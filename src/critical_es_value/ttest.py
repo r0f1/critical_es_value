@@ -3,66 +3,14 @@ import pandas as pd
 import pingouin
 from numpy.typing import ArrayLike
 from scipy import stats
-from scipy.special import loggamma
 
-
-def get_alpha(confidence: float, alternative: str) -> float:
-    """Calculate the significance level (alpha) corresponding to a given confidence level.
-
-    Args:
-        confidence (float): Confidence level between 0 and 1 (exclusive).
-        alternative (str): The alternative hypothesis. Either "one-sided" or "two-sided".
-
-    Returns:
-        float: The significance level (alpha).
-
-    Raises:
-        ValueError: If `confidence` is not in (0, 1)
-        ValueError: If `alternative` is not one of "one-sided" or "two-sided".
-
-    Examples:
-        >>> get_alpha(0.95, "one-sided")
-        0.05
-        >>> get_alpha(0.95, "two-sided")
-        0.025
-    """
-
-    if confidence <= 0 or confidence >= 1:
-        raise ValueError("confidence must be in (0, 1)")
-    if alternative not in ("one-sided", "two-sided"):
-        raise ValueError("alternative must be one of 'one-sided' or 'two-sided'")
-
-    alpha = 1 - confidence
-
-    if alternative == "two-sided":
-        return alpha / 2
-    return alpha
-
-
-def get_J(dof: int) -> np.float64:
-    """Calculate the bias correction factor J for Hedges' g.
-
-    Args:
-        dof (int): Degrees of freedom.
-
-    Returns:
-        np.float64: The bias correction factor J.
-
-    Examples:
-        >>> get_J(10)
-        0.92274560805
-        >>> get_J(20)
-        0.96194453374
-    """
-    num = loggamma(dof / 2)
-    denom = np.log(np.sqrt(dof / 2)) + loggamma((dof - 1) / 2)
-    return np.exp(num - denom)
+from critical_es_value import utils
 
 
 def critical_from_one_sample_ttest(
     x: ArrayLike,
-    alternative: str,
-    confidence: float,
+    alternative: str = "two-sided",
+    confidence: float = 0.95,
 ) -> pd.DataFrame:
     """Calculate critical effect size values from a one-sample t-test.
 
@@ -78,8 +26,8 @@ def critical_from_one_sample_ttest(
 
     Args:
         x (array-like): Sample data.
-        alternative (str): The alternative hypothesis. Either "one-sided" or "two-sided".
-        confidence (float): Confidence level between 0 and 1 (exclusive).
+        alternative (str): The alternative hypothesis. Either "one-sided" or "two-sided". Default is "two-sided".
+        confidence (float): Confidence level between 0 and 1 (exclusive). Default is 0.95.
 
     Returns:
         pd.DataFrame: A DataFrame containing critical effect size values.
@@ -94,7 +42,7 @@ def critical_from_one_sample_ttest(
         confidence=confidence,
     ).iloc[0]
 
-    alpha = get_alpha(confidence, alternative)
+    alpha = utils.get_alpha(confidence, alternative)
     dof = t_test_result.dof
 
     n = len(x)
@@ -106,7 +54,7 @@ def critical_from_one_sample_ttest(
     tc = np.abs(stats.t.ppf(alpha, dof))
     dc = tc * factor
 
-    j = get_J(dof)
+    j = utils.get_bias_correction_factor_J(dof)
 
     return pd.DataFrame(
         [
@@ -128,9 +76,9 @@ def critical_from_one_sample_ttest(
 def _critical_from_two_sample_ttest_paired(
     x: ArrayLike,
     y: ArrayLike,
-    alternative: str,
-    correction: bool,
-    confidence: float,
+    alternative: str = "two-sided",
+    correction: bool = False,
+    confidence: float = 0.95,
 ) -> pd.DataFrame:
     """Calculate critical effect size values from a PAIRED two-sample t-test.
 
@@ -151,9 +99,9 @@ def _critical_from_two_sample_ttest_paired(
     Args:
         x (array-like): Sample data for group 1.
         y (array-like): Sample data for group 2.
-        alternative (str): The alternative hypothesis. Either "one-sided" or "two-sided".
-        correction (bool): Whether to apply Welch's correction for unequal variances.
-        confidence (float): Confidence level between 0 and 1 (exclusive).
+        alternative (str): The alternative hypothesis. Either "one-sided" or "two-sided". Default is "two-sided".
+        correction (bool): Whether to apply Welch's correction for unequal variances. Default is False.
+        confidence (float): Confidence level between 0 and 1 (exclusive). Default is 0.95.
 
     Returns:
         pd.DataFrame: A DataFrame containing critical effect size values.
@@ -171,7 +119,7 @@ def _critical_from_two_sample_ttest_paired(
         confidence=confidence,
     ).iloc[0]
 
-    alpha = get_alpha(confidence, alternative)
+    alpha = utils.get_alpha(confidence, alternative)
     dof = t_test_result.dof
     n = len(x)
 
@@ -187,7 +135,7 @@ def _critical_from_two_sample_ttest_paired(
     dzc = tc * factor1
     dc = dzc * factor2
 
-    j = get_J(dof)
+    j = utils.get_bias_correction_factor_J(dof)
 
     return pd.DataFrame(
         [
@@ -213,10 +161,10 @@ def _critical_from_two_sample_ttest_paired(
 def critical_from_two_sample_ttest(
     x: ArrayLike,
     y: ArrayLike,
-    paired: bool,
-    alternative: str,
-    correction: bool,
-    confidence: float,
+    paired: bool = False,
+    alternative: str = "two-sided",
+    correction: bool = False,
+    confidence: float = 0.95,
 ) -> pd.DataFrame:
     """Calculate critical effect size values from a paired or unpaired two-sample t-test.
 
@@ -233,10 +181,10 @@ def critical_from_two_sample_ttest(
     Args:
         x (array-like): Sample data for group 1.
         y (array-like): Sample data for group 2.
-        paired (bool): Whether the samples are paired.
-        alternative (str): The alternative hypothesis. Either "one-sided" or "two-sided".
-        correction (bool): Whether to apply Welch's correction for unequal variances.
-        confidence (float): Confidence level between 0 and 1 (exclusive).
+        paired (bool): Whether the samples are paired. Default is False.
+        alternative (str): The alternative hypothesis. Either "one-sided" or "two-sided". Default is "two-sided".
+        correction (bool): Whether to apply Welch's correction for unequal variances. Default is False.
+        confidence (float): Confidence level between 0 and 1 (exclusive). Default is 0.95.
 
     Returns:
         pd.DataFrame: A DataFrame containing critical effect size values.
@@ -260,7 +208,7 @@ def critical_from_two_sample_ttest(
         confidence=confidence,
     ).iloc[0]
 
-    alpha = get_alpha(confidence, alternative)
+    alpha = utils.get_alpha(confidence, alternative)
     dof = t_test_result.dof
 
     n1 = len(x)
@@ -282,7 +230,7 @@ def critical_from_two_sample_ttest(
     else:
         se = np.sqrt((s1**2 * (n1 - 1) + s2**2 * (n2 - 1)) / (n1 + n2 - 2)) * factor
 
-    j = get_J(dof)
+    j = utils.get_bias_correction_factor_J(dof)
 
     return pd.DataFrame(
         [

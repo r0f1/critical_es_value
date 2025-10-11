@@ -1,39 +1,6 @@
 import pytest
 
-from critical_es_value import main
-
-
-@pytest.mark.parametrize(
-    "confidence, alternative, expected, match",
-    [
-        (0.90, "one-sided", 0.10, None),
-        (0.95, "one-sided", 0.05, None),
-        (0.90, "two-sided", 0.05, None),
-        (0.95, "two-sided", 0.025, None),
-        (0, "one-sided", 0, r"confidence must be in \(0, 1\)"),
-        (1, "one-sided", 0, r"confidence must be in \(0, 1\)"),
-        (0.95, "invalid", 0, r"alternative must be one of 'one-sided' or 'two-sided'"),
-    ],
-)
-def test_get_alpha(confidence, alternative, expected, match):
-    if match:
-        with pytest.raises(ValueError, match=match):
-            main.get_alpha(confidence, alternative)
-    else:
-        alpha = main.get_alpha(confidence, alternative)
-        assert alpha == pytest.approx(expected)
-
-
-@pytest.mark.parametrize(
-    "dof, expected",
-    [
-        (10, 0.92274560805),
-        (20, 0.96194453374),
-        (30, 0.97475437821),
-    ],
-)
-def test_get_J(dof, expected):
-    assert main.get_J(dof) == pytest.approx(expected)
+from critical_es_value import ttest
 
 
 @pytest.mark.parametrize(
@@ -69,7 +36,7 @@ def test_critical_from_one_sample_ttest(
     test_dataset1, test_dataset2, dataset, alternative, confidence, expected
 ):
     data = test_dataset1 if dataset == "test_dataset1" else test_dataset2
-    result = main.critical_from_one_sample_ttest(
+    result = ttest.critical_from_one_sample_ttest(
         x=data["x"],
         alternative=alternative,
         confidence=confidence,
@@ -140,7 +107,7 @@ def test_critical_from_two_sample_ttest(
 ):
     data = test_dataset1 if dataset == "test_dataset1" else test_dataset2
     print(data)
-    result = main.critical_from_two_sample_ttest(
+    result = ttest.critical_from_two_sample_ttest(
         x=data["x"],
         y=data["y"],
         paired=paired,
