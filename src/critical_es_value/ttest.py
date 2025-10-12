@@ -50,7 +50,7 @@ def critical_for_one_sample_ttest(
      - g_critical: Critical value for Hedges' g
 
     Args:
-        x (array-like): Sample data.
+        x (ArrayLike): Sample data.
         alternative (str): The alternative hypothesis. Either "two-sided", "greater", or "less". Default is "two-sided".
         confidence (float): Confidence level between 0 and 1 (exclusive). Default is 0.95.
 
@@ -121,8 +121,8 @@ def _critical_for_two_sample_ttest_paired(
      - gz_critical: Critical value for Hedges' gz
 
     Args:
-        x (array-like): Sample data for group 1.
-        y (array-like): Sample data for group 2.
+        x (ArrayLike): Sample data for group 1.
+        y (ArrayLike): Sample data for group 2.
         alternative (str): The alternative hypothesis. Either "two-sided", "greater", or "less". Default is "two-sided".
         confidence (float): Confidence level between 0 and 1 (exclusive). Default is 0.95.
 
@@ -202,8 +202,8 @@ def critical_for_two_sample_ttest(
      - g_critical: Critical value for Hedges' g
 
     Args:
-        x (array-like): Sample data for group 1.
-        y (array-like): Sample data for group 2.
+        x (ArrayLike): Sample data for group 1.
+        y (ArrayLike): Sample data for group 2.
         paired (bool): Whether the samples are paired. Default is False.
         alternative (str): The alternative hypothesis. Either "two-sided", "greater", or "less". Default is "two-sided".
         correction (bool): For unpaired two sample T-tests, specify whether or not to correct for unequal variances

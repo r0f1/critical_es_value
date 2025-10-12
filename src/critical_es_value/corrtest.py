@@ -14,6 +14,29 @@ def critical_for_correlation_test(
     alternative: str = "two-sided",
     variant: str = "ttest",
 ) -> pd.DataFrame:
+    """Calculate critical effect size values for a pearson correlation test.
+
+    Returns a DataFrame with the following columns:
+     - r: Pearson correlation coefficient
+     - n: Sample size
+     - dof: Degrees of freedom
+     - r_critical: Critical value for the correlation coefficient
+     - rz_critical: Critical value for Fisher's z-transformed correlation coefficient (only for "ztest" variant)
+     - se_r: Standard error of the correlation coefficient
+     - se_r_critical: Standard error of the critical correlation coefficient
+     - se_rz_critical: Standard error of the critical Fisher's z-transformed correlation coefficient (only for "ztest" variant)
+
+    Args:
+        x (ArrayLike): Sample data for group 1.
+        y (ArrayLike): Sample data for group 2.
+        confidence (float): Confidence level between 0 and 1 (exclusive). Default is 0.95.
+        alternative (str): The alternative hypothesis. Either "two-sided", "greater", or "less". Default is "two-sided".
+        variant (str): The statistical test variant. Either "ttest" or "ztest". Default is "ttest".
+
+    Returns:
+        pd.DataFrame: A DataFrame containing critical effect size values.
+    """
+
     if variant not in ["ttest", "ztest"]:
         raise ValueError("variant must be one of 'ttest' or 'ztest'")
 
