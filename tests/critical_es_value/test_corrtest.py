@@ -12,8 +12,8 @@ from critical_es_value import corrtest
             "two-sided",
             "ttest",
             {
-                "r": -0.3171089,
                 "n": 30,
+                "r": -0.3171089,
                 "dof": 28,
                 "r_critical": 0.361006907733233,
                 "se_r": 0.179228699226594,
@@ -26,8 +26,8 @@ from critical_es_value import corrtest
             "two-sided",
             "ztest",
             {
-                "r": -0.3171089,
                 "n": 30,
+                "r": -0.3171089,
                 "dof": 28,
                 "r_critical": 0.360269222595564,
                 "rz_critical": 0.377195244692057,
@@ -42,8 +42,8 @@ from critical_es_value import corrtest
             "greater",
             "ttest",
             {
-                "r": 0.120606,
                 "n": 50,
+                "r": 0.120606,
                 "dof": 48,
                 "r_critical": 0.184343459048078,
                 "se_r": 0.143283968686603,
@@ -56,8 +56,8 @@ from critical_es_value import corrtest
             "greater",
             "ztest",
             {
-                "r": 0.120606,
                 "n": 50,
+                "r": 0.120606,
                 "dof": 48,
                 "r_critical": 0.184786108823673,
                 "rz_critical": 0.186933508212277,
@@ -72,8 +72,8 @@ from critical_es_value import corrtest
             "less",
             "ttest",
             {
-                "r": -0.09117187,
                 "n": 30,
+                "r": -0.09117187,
                 "dof": 28,
                 "r_critical": 0.422572101611893,
                 "se_r": 0.18819515802568,
@@ -86,8 +86,8 @@ from critical_es_value import corrtest
             "less",
             "ztest",
             {
-                "r": -0.09117187,
                 "n": 30,
+                "r": -0.09117187,
                 "dof": 28,
                 "r_critical": 0.42001139326588,
                 "rz_critical": 0.447705857102064,

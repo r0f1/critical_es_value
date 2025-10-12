@@ -58,8 +58,8 @@ def critical_for_correlation_test(
         rc = np.tanh(zc / np.sqrt(n - 3))
 
     result = {
-        "r": r,
         "n": n,
+        "r": r,
         "dof": dof,
         "r_critical": rc,
         "se_r": np.sqrt((1 - r**2) / dof),
