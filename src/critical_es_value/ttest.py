@@ -185,8 +185,8 @@ def critical_for_two_sample_ttest(
     x: ArrayLike,
     y: ArrayLike,
     paired: bool = False,
-    alternative: str = "two-sided",
     correction: Union[bool, str] = "auto",
+    alternative: str = "two-sided",
     confidence: float = 0.95,
 ) -> pd.DataFrame:
     """Calculate critical effect size values for a paired or an unpaired two-sample t-test.
@@ -205,11 +205,11 @@ def critical_for_two_sample_ttest(
         x (ArrayLike): Sample data for group 1.
         y (ArrayLike): Sample data for group 2.
         paired (bool): Whether the samples are paired. Default is False.
-        alternative (str): The alternative hypothesis. Either "two-sided", "greater", or "less". Default is "two-sided".
         correction (bool): For unpaired two sample T-tests, specify whether or not to correct for unequal variances
             using Welch separate variances T-test. If "auto", it will automatically uses Welch T-test when the sample
             sizes are unequal. For paired T-tests, this parameter is ignored and no correction is performed. Default
             is "auto".
+        alternative (str): The alternative hypothesis. Either "two-sided", "greater", or "less". Default is "two-sided".
         confidence (float): Confidence level between 0 and 1 (exclusive). Default is 0.95.
 
     Returns:

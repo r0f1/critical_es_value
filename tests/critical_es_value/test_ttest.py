@@ -132,8 +132,8 @@ def test_critical_for_two_sample_ttest(
         x=data["x"],
         y=data["y"],
         paired=paired,
-        alternative=alternative,
         correction=correction,
+        alternative=alternative,
         confidence=confidence,
     ).iloc[0]
     print(result)
