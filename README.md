@@ -1,6 +1,6 @@
 # critical_es_value
 
-Calculate critical effect size values.
+Calculate critical effect size values for t-Tests, correlation tests and linear regression coefficients.
 
 ## Usage
 
