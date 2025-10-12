@@ -64,7 +64,7 @@ critical_for_correlation_test(x, y)
 |:---------|----:|---------:|------:|-------------:|--------:|----------------:|
 | critical |  30 | 0.594785 |    28 |     0.361007 | 0.15192 |        0.176238 |
 
-## Acknowlegement
+## Resources
 
 * [R package](https://psicostat.github.io/criticalESvalue/index.html)
 * [Original paper](https://journals.sagepub.com/doi/10.1177/25152459251335298?icid=int.sj-full-text.similar-articles.5)
