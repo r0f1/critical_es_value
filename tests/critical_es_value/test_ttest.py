@@ -64,11 +64,9 @@ def test_critical_for_one_sample_ttest(
         alternative=alternative,
         confidence=confidence,
     ).iloc[0]
-    assert result["d"] == pytest.approx(expected["d"])
-    assert result["d_critical"] == pytest.approx(expected["d_critical"])
-    assert result["b_critical"] == pytest.approx(expected["b_critical"])
-    assert result["g"] == pytest.approx(expected["g"])
-    assert result["g_critical"] == pytest.approx(expected["g_critical"])
+
+    for key, value in expected.items():
+        assert result[key] == pytest.approx(value), key
 
 
 @pytest.mark.parametrize(
@@ -139,8 +137,6 @@ def test_critical_for_two_sample_ttest(
         confidence=confidence,
     ).iloc[0]
     print(result)
-    assert result["d"] == pytest.approx(expected["d"])
-    assert result["d_critical"] == pytest.approx(expected["d_critical"])
-    assert result["b_critical"] == pytest.approx(expected["b_critical"])
-    assert result["g"] == pytest.approx(expected["g"])
-    assert result["g_critical"] == pytest.approx(expected["g_critical"])
+
+    for key, value in expected.items():
+        assert result[key] == pytest.approx(value), key
