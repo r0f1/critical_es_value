@@ -2,6 +2,12 @@
 
 Calculate critical effect size values for t-Tests, correlation tests and linear regression coefficients.
 
+## Installation
+
+```
+pip install critical-es-value
+```
+
 ## Usage
 
 ```python
