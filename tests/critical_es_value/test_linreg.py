@@ -6,7 +6,12 @@ from critical_es_value import linreg
 @pytest.mark.parametrize(
     "alternative, confidence, variant, expected, match",
     [
-        ("two-sided", 0.95, "ttest", [2.188362006, 0.441676723, 0.5405672546], None),
+        ("two-sided", 0.95, "ttest", [2.1883620, 0.4416767, 0.5405673], None),
+        ("two-sided", 0.99, "ttest", [2.9550478, 0.5964168, 0.7299533], None),
+        ("two-sided", 0.95, "ztest", [2.0903826, 0.4219015, 0.5163645], None),
+        ("two-sided", 0.99, "ztest", [2.7472284, 0.5544726, 0.6786179], None),
+        ("less", 0.95, "ttest", [1.81662748, 0.366649610, 0.4487417218], None),
+        ("greater", 0.95, "ttest", [1.81662748, 0.366649610, 0.4487417218], None),
         (
             "invalid",
             0.95,
