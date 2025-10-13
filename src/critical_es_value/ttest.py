@@ -77,6 +77,9 @@ def critical_for_one_sample_ttest(
     d = t * factor
 
     tc = np.abs(stats.t.ppf(alpha, dof))
+    if alternative == "less":
+        tc *= -1
+
     dc = tc * factor
 
     j = utils.get_bias_correction_factor_J(dof)
@@ -155,6 +158,8 @@ def _critical_for_two_sample_ttest_paired(
     d = dz * factor2
 
     tc = np.abs(stats.t.ppf(alpha, dof))
+    if alternative == "less":
+        tc *= -1
     dzc = tc * factor1
     dc = dzc * factor2
 
@@ -246,6 +251,8 @@ def critical_for_two_sample_ttest(
     d = t * factor
 
     tc = np.abs(stats.t.ppf(alpha, dof))
+    if alternative == "less":
+        tc *= -1
     dc = tc * factor
 
     s1 = np.std(x, ddof=1)
