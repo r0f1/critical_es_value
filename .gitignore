@@ -5,6 +5,7 @@ build/
 dist/
 wheels/
 *.egg-info
+.pytest_cache/
 
 # Virtual environments
 .venv
@@ -12,5 +13,5 @@ wheels/
 # Jupyter
 .ipynb_checkpoints
 
-*.ipynb
-data*.csv
+# Scratch files
+scratch/
