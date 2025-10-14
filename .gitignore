@@ -17,3 +17,5 @@ wheels/
 scratch/
 
 docs/_build/
+
+.coverage
