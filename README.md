@@ -13,13 +13,7 @@ pip install critical-es-value
 ```python
 import numpy as np
 import pingouin as pg
-
-from critical_es_value import (
-    critical_for_one_sample_ttest,
-    critical_for_two_sample_ttest,
-    critical_for_correlation_test,
-    critical_for_linear_regression,
-)
+import critical_es_value as cev
 
 np.random.seed(123)
 mean, cov, n = [4, 5], [(1, .6), (.6, 1)], 30
@@ -31,7 +25,7 @@ x, y = np.random.multivariate_normal(mean, cov, n).T
 
 ```python
 pg.ttest(x, 0)
-critical_for_one_sample_ttest(x)
+cev.critical_for_one_sample_ttest(x)
 ```
 
 |        |       T |   dof | alternative   |       p-val | CI95%       |   cohen-d |      BF10 |   power |
@@ -44,7 +38,7 @@ critical_for_one_sample_ttest(x)
 
 ```python
 pg.ttest(x, y)
-critical_for_two_sample_ttest(x, y)
+cev.critical_for_two_sample_ttest(x, y)
 ```
 
 |        |        T |   dof | alternative   |     p-val | CI95%         |   cohen-d |   BF10 |    power |
@@ -61,7 +55,7 @@ critical_for_two_sample_ttest(x, y)
 
 ```python
 pg.corr(x, y)
-critical_for_correlation_test(x, y)
+cev.critical_for_correlation_test(x, y)
 ```
 
 |         |   n |        r | CI95%       |      p-val |   BF10 |    power |
@@ -82,7 +76,7 @@ np.random.seed(123)
 data = pd.DataFrame({"X": x, "Y": y, "Z": np.random.normal(5, 1, 30)})
 
 pg.linear_regression(data[["X", "Z"]], data["Y"])
-critical_for_linear_regression(data[["X", "Z"]], data["Y"])
+cev.critical_for_linear_regression(data[["X", "Z"]], data["Y"])
 ```
 
 |    | names     |       coef |       se |         T |        pval |       r2 |   adj_r2 |   CI[2.5%] |   CI[97.5%] |
@@ -102,5 +96,6 @@ critical_for_linear_regression(data[["X", "Z"]], data["Y"])
 
 * [R package](https://github.com/psicostat/criticalESvalue)
 * [Original paper](https://journals.sagepub.com/doi/10.1177/25152459251335298?icid=int.sj-full-text.similar-articles.5)
-> Perugini, A., Gambarota, F., Toffalini, E., Lakens, D., Pastore, M., Finos, L., ... & Altoè, G. (2025). The Benefits of Reporting Critical-Effect-Size Values. Advances in Methods and Practices in Psychological Science, 8(2), 25152459251335298.
+
+ > Perugini, A., Gambarota, F., Toffalini, E., Lakens, D., Pastore, M., Finos, L., ... & Altoè, G. (2025). The Benefits of Reporting Critical-Effect-Size Values. Advances in Methods and Practices in Psychological Science, 8(2), 25152459251335298.
 

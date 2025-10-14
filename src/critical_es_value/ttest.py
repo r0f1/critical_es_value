@@ -39,23 +39,21 @@ def critical_for_one_sample_ttest(
 ) -> pd.DataFrame:
     """Calculate critical effect size values for a one-sample t-test.
 
-    Returns a DataFrame with the following columns:
-     - T: t-value of the test statistic
-     - dof: Degrees of freedom
-     - T_critical: Critical t-value
-     - d: Cohen's d
-     - d_critical: Critical value for Cohen's d
-     - b_critical: Critical value for the raw mean difference
-     - g: Hedges' g
-     - g_critical: Critical value for Hedges' g
-
     Args:
         x (ArrayLike): Sample data.
         alternative (str): The alternative hypothesis. Either "two-sided", "greater", or "less". Default is "two-sided".
         confidence (float): Confidence level between 0 and 1 (exclusive). Default is 0.95.
 
     Returns:
-        pd.DataFrame: A DataFrame containing critical effect size values.
+        pd.DataFrame: Returns a DataFrame with the following columns:
+            - `T`: t-value of the test statistic
+            - `dof`: Degrees of freedom
+            - `T_critical`: Critical t-value
+            - `d`: Cohen's d
+            - `d_critical`: Critical value for Cohen's d
+            - `b_critical`: Critical value for the raw mean difference
+            - `g`: Hedges' g
+            - `g_critical`: Critical value for Hedges' g
     """
 
     t_test_result = pingouin.ttest(
@@ -109,20 +107,6 @@ def _critical_for_two_sample_ttest_paired(
 ) -> pd.DataFrame:
     """Calculate critical effect size values for a PAIRED two-sample t-test.
 
-    Returns a DataFrame with the following columns:
-     - T: t-value of the test statistic
-     - dof: Degrees of freedom
-     - T_critical: Critical t-value
-     - d: Cohen's d
-     - d_critical: Critical value for Cohen's d
-     - b_critical: Critical value for the raw mean difference
-     - g: Hedges' g
-     - g_critical: Critical value for Hedges' g
-     - dz: Cohen's dz
-     - dz_critical: Critical value for Cohen's dz
-     - gz: Hedges' gz
-     - gz_critical: Critical value for Hedges' gz
-
     Args:
         x (ArrayLike): Sample data for group 1.
         y (ArrayLike): Sample data for group 2.
@@ -130,7 +114,19 @@ def _critical_for_two_sample_ttest_paired(
         confidence (float): Confidence level between 0 and 1 (exclusive). Default is 0.95.
 
     Returns:
-        pd.DataFrame: A DataFrame containing critical effect size values.
+        pd.DataFrame: Returns a DataFrame with the following columns:
+            - `T`: t-value of the test statistic
+            - `dof`: Degrees of freedom
+            - `T_critical`: Critical t-value
+            - `d`: Cohen's d
+            - `d_critical`: Critical value for Cohen's d
+            - `b_critical`: Critical value for the raw mean difference
+            - `g`: Hedges' g
+            - `g_critical`: Critical value for Hedges' g
+            - `dz`: Cohen's dz
+            - `dz_critical`: Critical value for Cohen's dz
+            - `gz`: Hedges' gz
+            - `gz_critical`: Critical value for Hedges' gz
     """
 
     if len(x) != len(y):
@@ -196,16 +192,6 @@ def critical_for_two_sample_ttest(
 ) -> pd.DataFrame:
     """Calculate critical effect size values for a paired or an unpaired two-sample t-test.
 
-    Returns a DataFrame with the following columns:
-     - T: t-value of the test statistic
-     - dof: Degrees of freedom
-     - T_critical: Critical t-value
-     - d: Cohen's d
-     - d_critical: Critical value for Cohen's d
-     - b_critical: Critical value for the raw mean difference
-     - g: Hedges' g
-     - g_critical: Critical value for Hedges' g
-
     Args:
         x (ArrayLike): Sample data for group 1.
         y (ArrayLike): Sample data for group 2.
@@ -218,7 +204,15 @@ def critical_for_two_sample_ttest(
         confidence (float): Confidence level between 0 and 1 (exclusive). Default is 0.95.
 
     Returns:
-        pd.DataFrame: A DataFrame containing critical effect size values.
+        pd.DataFrame: Returns a DataFrame with the following columns:
+           - `T`: t-value of the test statistic
+           - `dof`: Degrees of freedom
+           - `T_critical`: Critical t-value
+           - `d`: Cohen's d
+           - `d_critical`: Critical value for Cohen's d
+           - `b_critical`: Critical value for the raw mean difference
+           - `g`: Hedges' g
+           - `g_critical`: Critical value for Hedges' g
     """
 
     if paired:

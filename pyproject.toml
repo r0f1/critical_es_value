@@ -20,9 +20,11 @@ build-backend = "hatchling.build"
 [dependency-groups]
 dev = [
     "jupyter>=1.1.1",
-    "pdoc>=15.0.4",
     "pre-commit>=4.3.0",
     "pytest>=8.4.2",
+    "sphinx>=8.2.3",
+    "sphinx-autoapi>=3.6.1",
+    "sphinx-autobuild>=2025.8.25",
 ]
 
 [tool.pytest.ini_options]
