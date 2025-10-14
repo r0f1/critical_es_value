@@ -8,7 +8,19 @@ Calculate critical effect size values for t-Tests, correlation tests and linear 
 pip install critical-es-value
 ```
 
-## Usage
+## Overview
+
+This package offers 8 main functions. Either provide the raw sample data to the main version of the function, or provide the summary statistics to the `from_values()` version.
+
+| Main version    | from_values()    |
+|:----|:----|
+| `critical_for_one_sample_ttest()` | `critical_for_one_sample_ttest_from_values()` |
+| `critical_for_two_sample_ttest()` | `critical_for_two_sample_ttest_from_values()` |
+| `critical_for_correlation_test()` | `critical_for_correlation_test_from_values()` |
+| `critical_for_linear_regression()` | `critical_for_linear_regression_from_values()` |
+
+
+## Main Usage
 
 ```python
 import numpy as np
@@ -36,8 +48,8 @@ cev.critical_for_one_sample_ttest(x)
 | critical | 16.0765 |    29 |      2.04523 | 2.93515 |     0.373406 |     0.491162 | 2.85847 |     0.363651 |
 
 ```python
-pg.ttest(x, y)
-cev.critical_for_two_sample_ttest(x, y)
+pg.ttest(x, y, paired=False)
+cev.critical_for_two_sample_ttest(x, y, paired=False)
 ```
 
 |        |        T |   dof | alternative   |     p-val | CI95%         |   cohen-d |   BF10 |    power |
@@ -83,6 +95,79 @@ cev.critical_for_linear_regression(data[["X", "Z"]], data["Y"])
 |  0 | Intercept |  3.15799   | 0.844129 |  3.74112  | 0.000874245 | 0.354522 | 0.306709 |   1.42598  |    4.88999  |
 |  1 | X         |  0.487772  | 0.126736 |  3.84871  | 0.000659501 | 0.354522 | 0.306709 |   0.22773  |    0.747814 |
 |  2 | Z         | -0.0249309 | 0.140417 | -0.177548 | 0.860403    | 0.354522 | 0.306709 |  -0.313044 |    0.263182 |
+
+|    | names     |       coef |   coef_critical |
+|---:|:----------|-----------:|----------------:|
+|  0 | Intercept |  3.15799   |        1.73201  |
+|  1 | X         |  0.487772  |        0.260042 |
+|  2 | Z         | -0.0249309 |        0.288113 |
+
+
+## Usage of from_values() version
+
+### t-Test
+
+```python
+t_test_result = pg.ttest(x, 0).iloc[0]
+cev.critical_for_one_sample_ttest_from_values(
+    t=t_test_result["T"],
+    n=len(x),
+    dof=t_test_result.dof,
+    std=np.std(x, ddof=1),
+)
+```
+
+|          |       T |   dof |   T_critical |       d |   d_critical |       g |   g_critical |   b_critical |
+|:---------|--------:|------:|-------------:|--------:|-------------:|--------:|-------------:|-------------:|
+| critical | 16.0765 |    29 |      2.04523 | 2.93515 |     0.373406 | 2.85847 |     0.363651 |     0.491162 |
+
+```python
+t_test_result = pg.ttest(x, y, paired=False).iloc[0]
+cev.critical_for_two_sample_ttest_from_values(
+    t=t_test_result["T"],
+    n1=len(x),
+    n2=len(y),
+    dof=t_test_result.dof,
+    paired=False,
+    std1=np.std(x, ddof=1),
+    std2=np.std(y, ddof=1),
+)
+```
+
+|          |        T |   dof |   T_critical |         d |   d_critical |         g |   g_critical |   b_critical |
+|:---------|---------:|------:|-------------:|----------:|-------------:|----------:|-------------:|-------------:|
+| critical | -3.40071 |    58 |      2.00172 | -0.878059 |     0.516841 | -0.866647 |     0.510124 |      0.62077 |
+
+
+### Correlation Test
+
+```python
+corr_test = pg.corr(x, y).iloc[0]
+cev.critical_for_correlation_test_from_values(
+    r=corr_test["r"],
+    n=corr_test["n"],
+    variant="ttest",
+)
+```
+
+|          |   n |        r |   dof |   r_critical |    se_r |   se_r_critical |
+|:---------|----:|---------:|------:|-------------:|--------:|----------------:|
+| critical |  30 | 0.594785 |    28 |     0.361007 | 0.15192 |        0.176238 |
+
+
+### Linear Regression
+
+```python
+model = pg.linear_regression(data[["X", "Z"]], data["Y"])
+
+cev.critical_for_linear_regression_from_values(
+    coeffs=model["coef"].values,
+    coeffs_se=model["se"].values,
+    coeffs_names=model["names"].values,
+    dof=model.df_resid_,
+    variant="ttest",
+)
+```
 
 |    | names     |       coef |   coef_critical |
 |---:|:----------|-----------:|----------------:|
