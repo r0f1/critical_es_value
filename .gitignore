@@ -12,5 +12,5 @@ wheels/
 # Jupyter
 .ipynb_checkpoints
 
-*.ipynb
-data*.csv
+# Scratch files
+scratch/
