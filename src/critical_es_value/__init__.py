@@ -1,7 +1,10 @@
-from .corrtest import critical_for_correlation_test
+from .corrtest import (
+    critical_for_correlation_test,
+    critical_for_correlation_test_from_values,
+)
 from .linreg import (
     critical_for_linear_regression,
-    critical_for_linear_regression_se_coefficients,
+    critical_for_linear_regression_from_values,
 )
 from .ttest import (
     critical_for_one_sample_ttest,

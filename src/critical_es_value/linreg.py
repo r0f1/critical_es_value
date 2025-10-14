@@ -1,3 +1,5 @@
+from typing import Optional
+
 import numpy as np
 import pandas as pd
 import pingouin
@@ -7,20 +9,24 @@ from scipy import stats
 from critical_es_value import utils
 
 
-def critical_for_linear_regression_se_coefficients(
-    se_coefficients: ArrayLike,
-    dof: int,
-    alternative: str = "two-sided",
+def critical_for_linear_regression_from_values(
+    coeffs: ArrayLike,
+    coeffs_se: ArrayLike,
+    coeffs_names: ArrayLike,
+    dof: Optional[int] = None,
     confidence: float = 0.95,
+    alternative: str = "two-sided",
     variant: str = "ttest",
 ) -> list[float]:
-    """Calculate critical effect size values for linear regression coefficients.
+    """Calculate critical effect size values given linear regression coefficients.
 
     Args:
-        se_coefficients (ArrayLike): Standard errors of the regression coefficients.
-        dof (int): Degrees of freedom of the model residuals.
-        alternative (str): The alternative hypothesis. Either "two-sided", "greater", or "less". Default is "two-sided".
+        coeffs (ArrayLike): Estimated regression coefficients.
+        coeffs_se (ArrayLike): Standard errors of the regression coefficients.
+        coeffs_names (ArrayLike): Names of the regression coefficients.
+        dof (Optional[int]): Degrees of freedom of the model residuals. Only used for "ttest" variant.
         confidence (float): Confidence level between 0 and 1 (exclusive). Default is 0.95.
+        alternative (str): The alternative hypothesis. Either "two-sided", "greater", or "
         variant (str): The statistical test variant. Either "ttest" or "ztest". Default is "ttest".
 
     Returns:
@@ -29,24 +35,34 @@ def critical_for_linear_regression_se_coefficients(
     Raises:
         ValueError: If variant is not one of "ttest" or "ztest".
     """
+    alpha = utils.get_alpha(confidence, alternative)
+
     if variant not in ["ttest", "ztest"]:
         raise ValueError("variant must be one of 'ttest' or 'ztest'")
 
-    alpha = utils.get_alpha(confidence, alternative)
+    if variant == "ttest" and dof is None:
+        raise ValueError("dof must be provided for 'ttest' variant")
 
     if variant == "ttest":
         qc = np.abs(stats.t.ppf(alpha, dof))
     else:
         qc = np.abs(stats.norm.ppf(alpha))
 
-    return qc * np.array(se_coefficients)
+    return pd.DataFrame(
+        {
+            "names": coeffs_names,
+            "coef": coeffs,
+            "coef_critical": qc * np.array(coeffs_se),
+        },
+        index=list(range(len(coeffs))),
+    )
 
 
 def critical_for_linear_regression(
     X: pd.DataFrame,
     y: pd.Series,
-    alternative: str = "two-sided",
     confidence: float = 0.95,
+    alternative: str = "two-sided",
     variant: str = "ttest",
     **kwargs,
 ):
@@ -55,8 +71,8 @@ def critical_for_linear_regression(
     Args:
         X (pd.DataFrame): DataFrame containing the independent variables.
         y (pd.Series): Series containing the dependent variable.
-        alternative (str): The alternative hypothesis. Either "two-sided", "greater", or "less". Default is "two-sided".
         confidence (float): Confidence level between 0 and 1 (exclusive). Default is 0.95.
+        alternative (str): The alternative hypothesis. Either "two-sided", "greater", or "less". Default is "two-sided".
         variant (str): The statistical test variant. Either "ttest" or "ztest". Default is "ttest".
         \*\*kwargs: Additional keyword arguments to pass to pingouin.linear_regression.
 
@@ -65,31 +81,16 @@ def critical_for_linear_regression(
             - `names`: Names of the regression coefficients
             - `coef`: Estimated regression coefficients
             - `coef_critical`: Critical value for the regression coefficients
-
-    Raises:
-        ValueError: If variant is not one of "ttest" or "ztest".
     """
-    if variant not in ["ttest", "ztest"]:
-        raise ValueError("variant must be one of 'ttest' or 'ztest'")
-
     alpha = utils.get_alpha(confidence, alternative)
-
     model = pingouin.linear_regression(X=X, y=y, alpha=alpha, **kwargs)
-    coef = model["coef"].values
 
-    coef_critical = critical_for_linear_regression_se_coefficients(
-        se_coefficients=model["se"].values,
+    return critical_for_linear_regression_from_values(
+        coeffs=model["coef"].values,
+        coeffs_se=model["se"].values,
+        coeffs_names=model["names"].values,
         dof=model.df_resid_,
         confidence=confidence,
         alternative=alternative,
         variant=variant,
-    )
-
-    return pd.DataFrame(
-        {
-            "names": model["names"].values,
-            "coef": coef,
-            "coef_critical": coef_critical,
-        },
-        index=list(range(len(coef))),
     )

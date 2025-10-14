@@ -27,6 +27,7 @@ dev = [
     "jupyter>=1.1.1",
     "pre-commit>=4.3.0",
     "pytest>=8.4.2",
+    "pytest-cov>=7.0.0",
     "sphinx>=8.2.3",
     "sphinx-autoapi>=3.6.1",
     "sphinx-autobuild>=2025.8.25",
