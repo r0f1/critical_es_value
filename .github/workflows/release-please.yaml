@@ -16,8 +16,5 @@ jobs:
       - name: Create release
         uses: googleapis/release-please-action@v4
         with:
-          draft-pull-request: true
-          package-name: critical-es-value
           release-type: python
           token: ${{ secrets.RELEASE_PLEASE_TOKEN }}
-
