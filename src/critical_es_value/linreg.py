@@ -10,8 +10,8 @@ from critical_es_value import utils
 def critical_for_linear_regression_se_coefficients(
     se_coefficients: ArrayLike,
     dof: int,
-    confidence: float,
-    alternative: str,
+    alternative: str = "two-sided",
+    confidence: float = 0.95,
     variant: str = "ttest",
 ) -> list[float]:
     """Calculate critical effect size values for linear regression coefficients.
@@ -19,8 +19,8 @@ def critical_for_linear_regression_se_coefficients(
     Args:
         se_coefficients (ArrayLike): Standard errors of the regression coefficients.
         dof (int): Degrees of freedom of the model residuals.
-        confidence (float): Confidence level between 0 and 1 (exclusive).
-        alternative (str): The alternative hypothesis. Either "two-sided", "greater", or "less".
+        alternative (str): The alternative hypothesis. Either "two-sided", "greater", or "less". Default is "two-sided".
+        confidence (float): Confidence level between 0 and 1 (exclusive). Default is 0.95.
         variant (str): The statistical test variant. Either "ttest" or "ztest". Default is "ttest".
 
     Returns:
@@ -52,21 +52,19 @@ def critical_for_linear_regression(
 ):
     """Calculate critical effect size values for linear regression coefficients.
 
-    Returns a DataFrame with the following columns:
-     - names: Names of the regression coefficients
-     - coef: Estimated regression coefficients
-     - coef_critical: Critical value for the regression coefficients
-
     Args:
         X (pd.DataFrame): DataFrame containing the independent variables.
         y (pd.Series): Series containing the dependent variable.
         alternative (str): The alternative hypothesis. Either "two-sided", "greater", or "less". Default is "two-sided".
         confidence (float): Confidence level between 0 and 1 (exclusive). Default is 0.95.
         variant (str): The statistical test variant. Either "ttest" or "ztest". Default is "ttest".
-        **kwargs: Additional keyword arguments to pass to pingouin.linear_regression.
+        \*\*kwargs: Additional keyword arguments to pass to pingouin.linear_regression.
 
     Returns:
-        pd.DataFrame: A DataFrame containing critical effect size values.
+        pd.DataFrame: Returns a DataFrame with the following columns:
+            - `names`: Names of the regression coefficients
+            - `coef`: Estimated regression coefficients
+            - `coef_critical`: Critical value for the regression coefficients
 
     Raises:
         ValueError: If variant is not one of "ttest" or "ztest".

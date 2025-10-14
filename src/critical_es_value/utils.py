@@ -3,7 +3,14 @@ from scipy import special as scipy_special
 
 
 def get_alpha(confidence: float, alternative: str) -> float:
-    """Calculate the significance level (alpha) corresponding to a given confidence level.
+    r"""Calculate the significance level (alpha) corresponding to a given confidence level.
+
+    .. math::
+
+        \alpha = \begin{cases}
+            1 - \text{conf} & \text{one-sided} \\
+            \frac{1 - \text{conf}}{2} & \text{two-sided}
+        \end{cases}
 
     Args:
         confidence (float): Confidence level between 0 and 1 (exclusive).
@@ -36,7 +43,11 @@ def get_alpha(confidence: float, alternative: str) -> float:
 
 
 def get_bias_correction_factor_J(dof: int) -> np.float64:
-    """Calculate the bias correction factor J for Hedges' g.
+    r"""Calculate the bias correction factor J for Hedges' g.
+
+    .. math::
+
+        J(x) = \frac{\Gamma\left(\frac{x}{2}\right)}{\sqrt{\frac{x}{2}}\Gamma\left(\frac{x-1}{2}\right)}
 
     Args:
         dof (int): Degrees of freedom.
