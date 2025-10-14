@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.1](https://github.com/r0f1/critical_es_value/compare/v0.3.0...v0.3.1) (2025-10-14)
+
+
+### Bug Fixes
+
+* Token in workflow ([b976fb3](https://github.com/r0f1/critical_es_value/commit/b976fb36e15c7281c36025f0698adce9a0afc223))
+
 ## [0.3.0](https://github.com/r0f1/critical_es_value/compare/v0.2.1...v0.3.0) (2025-10-14)
 
 
