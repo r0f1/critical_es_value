@@ -22,7 +22,6 @@ x, y = np.random.multivariate_normal(mean, cov, n).T
 
 ### t-Test
 
-
 ```python
 pg.ttest(x, 0)
 cev.critical_for_one_sample_ttest(x)
