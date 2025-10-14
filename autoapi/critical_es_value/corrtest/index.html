@@ -40,7 +40,10 @@
 <h2>Functions<a class="headerlink" href="#functions" title="Link to this heading">¶</a></h2>
 <table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#critical_es_value.corrtest.critical_for_correlation_test" title="critical_es_value.corrtest.critical_for_correlation_test"><code class="xref py py-obj docutils literal notranslate"><span class="pre">critical_for_correlation_test</span></code></a>(→ pandas.DataFrame)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#critical_es_value.corrtest.critical_for_correlation_test_from_values" title="critical_es_value.corrtest.critical_for_correlation_test_from_values"><code class="xref py py-obj docutils literal notranslate"><span class="pre">critical_for_correlation_test_from_values</span></code></a>(...)</p></td>
+<td><p>Calculate critical effect size values given pearson correlation coefficient, sample size and significance level.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#critical_es_value.corrtest.critical_for_correlation_test" title="critical_es_value.corrtest.critical_for_correlation_test"><code class="xref py py-obj docutils literal notranslate"><span class="pre">critical_for_correlation_test</span></code></a>(→ pandas.DataFrame)</p></td>
 <td><p>Calculate critical effect size values for a pearson correlation test.</p></td>
 </tr>
 </tbody>
@@ -48,6 +51,45 @@
 </section>
 <section id="module-contents">
 <h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="critical_es_value.corrtest.critical_for_correlation_test_from_values">
+<span class="sig-prename descclassname"><span class="pre">critical_es_value.corrtest.</span></span><span class="sig-name descname"><span class="pre">critical_for_correlation_test_from_values</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">confidence</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.95</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alternative</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'two-sided'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variant</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'ttest'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pandas.DataFrame</span></span></span><a class="headerlink" href="#critical_es_value.corrtest.critical_for_correlation_test_from_values" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate critical effect size values given pearson correlation coefficient, sample size and significance level.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>r</strong> (<em>float</em>) – Pearson correlation coefficient.</p></li>
+<li><p><strong>n</strong> (<em>int</em>) – Sample size.</p></li>
+<li><p><strong>confidence</strong> (<em>float</em>) – Confidence level between 0 and 1 (exclusive). Default is 0.95.</p></li>
+<li><p><strong>alternative</strong> (<em>str</em>) – The alternative hypothesis. Either “two-sided”, “greater”, or “</p></li>
+<li><p><strong>variant</strong> (<em>str</em>) – The statistical test variant. Either “ttest” or “ztest”. Default is “ttest”.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>A DataFrame with the following columns:</dt><dd><ul class="simple">
+<li><p><cite>r</cite>: Pearson correlation coefficient</p></li>
+<li><p><cite>n</cite>: Sample size</p></li>
+<li><p><cite>dof</cite>: Degrees of freedom</p></li>
+<li><p><cite>r_critical</cite>: Critical value for the correlation coefficient</p></li>
+<li><p><cite>rz_critical</cite>: Critical value for Fisher’s z-transformed correlation coefficient (only for “ztest” variant)</p></li>
+<li><p><cite>se_r</cite>: Standard error of the correlation coefficient</p></li>
+<li><p><cite>se_r_critical</cite>: Standard error of the critical correlation coefficient</p></li>
+<li><p><cite>se_rz_critical</cite>: Standard error of the critical Fisher’s z-transformed correlation coefficient (only for “ztest” variant)</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If <cite>variant</cite> is not one of “ttest” or “ztest”.</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py function">
 <dt class="sig sig-object py" id="critical_es_value.corrtest.critical_for_correlation_test">
 <span class="sig-prename descclassname"><span class="pre">critical_es_value.corrtest.</span></span><span class="sig-name descname"><span class="pre">critical_for_correlation_test</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.typing.ArrayLike</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.typing.ArrayLike</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">confidence</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.95</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alternative</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'two-sided'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variant</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'ttest'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pandas.DataFrame</span></span></span><a class="headerlink" href="#critical_es_value.corrtest.critical_for_correlation_test" title="Link to this definition">¶</a></dt>
@@ -80,9 +122,6 @@
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>pd.DataFrame</p>
-</dd>
-<dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>ValueError</strong> – If <cite>variant</cite> is not one of “ttest” or “ztest”.</p>
 </dd>
 </dl>
 </dd></dl>

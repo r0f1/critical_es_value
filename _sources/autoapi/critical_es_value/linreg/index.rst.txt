@@ -9,25 +9,29 @@ Functions
 
 .. autoapisummary::
 
-   critical_es_value.linreg.critical_for_linear_regression_se_coefficients
+   critical_es_value.linreg.critical_for_linear_regression_from_values
    critical_es_value.linreg.critical_for_linear_regression
 
 
 Module Contents
 ---------------
 
-.. py:function:: critical_for_linear_regression_se_coefficients(se_coefficients: numpy.typing.ArrayLike, dof: int, alternative: str = 'two-sided', confidence: float = 0.95, variant: str = 'ttest') -> list[float]
+.. py:function:: critical_for_linear_regression_from_values(coeffs: numpy.typing.ArrayLike, coeffs_se: numpy.typing.ArrayLike, coeffs_names: numpy.typing.ArrayLike, dof: Optional[int] = None, confidence: float = 0.95, alternative: str = 'two-sided', variant: str = 'ttest') -> list[float]
 
-   Calculate critical effect size values for linear regression coefficients.
+   Calculate critical effect size values given linear regression coefficients.
 
-   :param se_coefficients: Standard errors of the regression coefficients.
-   :type se_coefficients: ArrayLike
-   :param dof: Degrees of freedom of the model residuals.
-   :type dof: int
-   :param alternative: The alternative hypothesis. Either "two-sided", "greater", or "less". Default is "two-sided".
-   :type alternative: str
+   :param coeffs: Estimated regression coefficients.
+   :type coeffs: ArrayLike
+   :param coeffs_se: Standard errors of the regression coefficients.
+   :type coeffs_se: ArrayLike
+   :param coeffs_names: Names of the regression coefficients.
+   :type coeffs_names: ArrayLike
+   :param dof: Degrees of freedom of the model residuals. Only used for "ttest" variant.
+   :type dof: Optional[int]
    :param confidence: Confidence level between 0 and 1 (exclusive). Default is 0.95.
    :type confidence: float
+   :param alternative: The alternative hypothesis. Either "two-sided", "greater", or "
+   :type alternative: str
    :param variant: The statistical test variant. Either "ttest" or "ztest". Default is "ttest".
    :type variant: str
 
@@ -37,7 +41,7 @@ Module Contents
    :raises ValueError: If variant is not one of "ttest" or "ztest".
 
 
-.. py:function:: critical_for_linear_regression(X: pandas.DataFrame, y: pandas.Series, alternative: str = 'two-sided', confidence: float = 0.95, variant: str = 'ttest', **kwargs)
+.. py:function:: critical_for_linear_regression(X: pandas.DataFrame, y: pandas.Series, confidence: float = 0.95, alternative: str = 'two-sided', variant: str = 'ttest', **kwargs)
 
    Calculate critical effect size values for linear regression coefficients.
 
@@ -45,10 +49,10 @@ Module Contents
    :type X: pd.DataFrame
    :param y: Series containing the dependent variable.
    :type y: pd.Series
-   :param alternative: The alternative hypothesis. Either "two-sided", "greater", or "less". Default is "two-sided".
-   :type alternative: str
    :param confidence: Confidence level between 0 and 1 (exclusive). Default is 0.95.
    :type confidence: float
+   :param alternative: The alternative hypothesis. Either "two-sided", "greater", or "less". Default is "two-sided".
+   :type alternative: str
    :param variant: The statistical test variant. Either "ttest" or "ztest". Default is "ttest".
    :type variant: str
    :param \*\*kwargs: Additional keyword arguments to pass to pingouin.linear_regression.
@@ -60,7 +64,5 @@ Module Contents
                  - `coef`: Estimated regression coefficients
                  - `coef_critical`: Critical value for the regression coefficients
    :rtype: pd.DataFrame
-
-   :raises ValueError: If variant is not one of "ttest" or "ztest".
 
 

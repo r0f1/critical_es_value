@@ -9,11 +9,43 @@ Functions
 
 .. autoapisummary::
 
+   critical_es_value.corrtest.critical_for_correlation_test_from_values
    critical_es_value.corrtest.critical_for_correlation_test
 
 
 Module Contents
 ---------------
+
+.. py:function:: critical_for_correlation_test_from_values(r: float, n: int, confidence: float = 0.95, alternative: str = 'two-sided', variant: str = 'ttest') -> pandas.DataFrame
+
+   Calculate critical effect size values given pearson correlation coefficient, sample size and significance level.
+
+   :param r: Pearson correlation coefficient.
+   :type r: float
+   :param n: Sample size.
+   :type n: int
+   :param confidence: Confidence level between 0 and 1 (exclusive). Default is 0.95.
+   :type confidence: float
+   :param alternative: The alternative hypothesis. Either "two-sided", "greater", or "
+   :type alternative: str
+   :param variant: The statistical test variant. Either "ttest" or "ztest". Default is "ttest".
+   :type variant: str
+
+   :returns:
+
+             A DataFrame with the following columns:
+                 - `r`: Pearson correlation coefficient
+                 - `n`: Sample size
+                 - `dof`: Degrees of freedom
+                 - `r_critical`: Critical value for the correlation coefficient
+                 - `rz_critical`: Critical value for Fisher's z-transformed correlation coefficient (only for "ztest" variant)
+                 - `se_r`: Standard error of the correlation coefficient
+                 - `se_r_critical`: Standard error of the critical correlation coefficient
+                 - `se_rz_critical`: Standard error of the critical Fisher's z-transformed correlation coefficient (only for "ztest" variant)
+   :rtype: pd.DataFrame
+
+   :raises ValueError: If `variant` is not one of "ttest" or "ztest".
+
 
 .. py:function:: critical_for_correlation_test(x: numpy.typing.ArrayLike, y: numpy.typing.ArrayLike, confidence: float = 0.95, alternative: str = 'two-sided', variant: str = 'ttest') -> pandas.DataFrame
 
@@ -42,7 +74,5 @@ Module Contents
                  - `se_r_critical`: Standard error of the critical correlation coefficient
                  - `se_rz_critical`: Standard error of the critical Fisher's z-transformed correlation coefficient (only for "ztest" variant)
    :rtype: pd.DataFrame
-
-   :raises ValueError: If `variant` is not one of "ttest" or "ztest".
 
 

@@ -55,22 +55,31 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="#critical_es_value.critical_for_correlation_test" title="critical_es_value.critical_for_correlation_test"><code class="xref py py-obj docutils literal notranslate"><span class="pre">critical_for_correlation_test</span></code></a>(→ pandas.DataFrame)</p></td>
 <td><p>Calculate critical effect size values for a pearson correlation test.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#critical_es_value.critical_for_linear_regression" title="critical_es_value.critical_for_linear_regression"><code class="xref py py-obj docutils literal notranslate"><span class="pre">critical_for_linear_regression</span></code></a>(X, y[, alternative, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#critical_es_value.critical_for_correlation_test_from_values" title="critical_es_value.critical_for_correlation_test_from_values"><code class="xref py py-obj docutils literal notranslate"><span class="pre">critical_for_correlation_test_from_values</span></code></a>(...)</p></td>
+<td><p>Calculate critical effect size values given pearson correlation coefficient, sample size and significance level.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#critical_es_value.critical_for_linear_regression" title="critical_es_value.critical_for_linear_regression"><code class="xref py py-obj docutils literal notranslate"><span class="pre">critical_for_linear_regression</span></code></a>(X, y[, confidence, ...])</p></td>
 <td><p>Calculate critical effect size values for linear regression coefficients.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#critical_es_value.critical_for_linear_regression_se_coefficients" title="critical_es_value.critical_for_linear_regression_se_coefficients"><code class="xref py py-obj docutils literal notranslate"><span class="pre">critical_for_linear_regression_se_coefficients</span></code></a>(...)</p></td>
-<td><p>Calculate critical effect size values for linear regression coefficients.</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#critical_es_value.critical_for_linear_regression_from_values" title="critical_es_value.critical_for_linear_regression_from_values"><code class="xref py py-obj docutils literal notranslate"><span class="pre">critical_for_linear_regression_from_values</span></code></a>(→ list[float])</p></td>
+<td><p>Calculate critical effect size values given linear regression coefficients.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#critical_es_value.critical_for_one_sample_ttest" title="critical_es_value.critical_for_one_sample_ttest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">critical_for_one_sample_ttest</span></code></a>(→ pandas.DataFrame)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#critical_es_value.critical_for_one_sample_ttest" title="critical_es_value.critical_for_one_sample_ttest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">critical_for_one_sample_ttest</span></code></a>(→ pandas.DataFrame)</p></td>
 <td><p>Calculate critical effect size values for a one-sample t-test.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#critical_es_value.critical_for_one_sample_ttest_from_values" title="critical_es_value.critical_for_one_sample_ttest_from_values"><code class="xref py py-obj docutils literal notranslate"><span class="pre">critical_for_one_sample_ttest_from_values</span></code></a>(t, n, dof[, ...])</p></td>
+<td><p>Calculate critical effect size values for a one-sample t-test given t, sample size and other parameters.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#critical_es_value.critical_for_two_sample_ttest" title="critical_es_value.critical_for_two_sample_ttest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">critical_for_two_sample_ttest</span></code></a>(→ pandas.DataFrame)</p></td>
 <td><p>Calculate critical effect size values for a paired or an unpaired two-sample t-test.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#critical_es_value.get_alpha" title="critical_es_value.get_alpha"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_alpha</span></code></a>(→ float)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#critical_es_value.critical_for_two_sample_ttest_from_values" title="critical_es_value.critical_for_two_sample_ttest_from_values"><code class="xref py py-obj docutils literal notranslate"><span class="pre">critical_for_two_sample_ttest_from_values</span></code></a>(...)</p></td>
+<td><p>Calculate critical effect size values for a paired or an unpaired two-sample t-test given t, sample sizes and other parameters.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#critical_es_value.get_alpha" title="critical_es_value.get_alpha"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_alpha</span></code></a>(→ float)</p></td>
 <td><p>Calculate the significance level (alpha) corresponding to a given confidence level.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#critical_es_value.get_bias_correction_factor_J" title="critical_es_value.get_bias_correction_factor_J"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_bias_correction_factor_J</span></code></a>(→ numpy.float64)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#critical_es_value.get_bias_correction_factor_J" title="critical_es_value.get_bias_correction_factor_J"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_bias_correction_factor_J</span></code></a>(→ numpy.float64)</p></td>
 <td><p>Calculate the bias correction factor J for Hedges' g.</p></td>
 </tr>
 </tbody>
@@ -111,6 +120,42 @@
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>pd.DataFrame</p>
 </dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="critical_es_value.critical_for_correlation_test_from_values">
+<span class="sig-prename descclassname"><span class="pre">critical_es_value.</span></span><span class="sig-name descname"><span class="pre">critical_for_correlation_test_from_values</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">confidence</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.95</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alternative</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'two-sided'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variant</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'ttest'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pandas.DataFrame</span></span></span><a class="headerlink" href="#critical_es_value.critical_for_correlation_test_from_values" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate critical effect size values given pearson correlation coefficient, sample size and significance level.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>r</strong> (<em>float</em>) – Pearson correlation coefficient.</p></li>
+<li><p><strong>n</strong> (<em>int</em>) – Sample size.</p></li>
+<li><p><strong>confidence</strong> (<em>float</em>) – Confidence level between 0 and 1 (exclusive). Default is 0.95.</p></li>
+<li><p><strong>alternative</strong> (<em>str</em>) – The alternative hypothesis. Either “two-sided”, “greater”, or “</p></li>
+<li><p><strong>variant</strong> (<em>str</em>) – The statistical test variant. Either “ttest” or “ztest”. Default is “ttest”.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>A DataFrame with the following columns:</dt><dd><ul class="simple">
+<li><p><cite>r</cite>: Pearson correlation coefficient</p></li>
+<li><p><cite>n</cite>: Sample size</p></li>
+<li><p><cite>dof</cite>: Degrees of freedom</p></li>
+<li><p><cite>r_critical</cite>: Critical value for the correlation coefficient</p></li>
+<li><p><cite>rz_critical</cite>: Critical value for Fisher’s z-transformed correlation coefficient (only for “ztest” variant)</p></li>
+<li><p><cite>se_r</cite>: Standard error of the correlation coefficient</p></li>
+<li><p><cite>se_r_critical</cite>: Standard error of the critical correlation coefficient</p></li>
+<li><p><cite>se_rz_critical</cite>: Standard error of the critical Fisher’s z-transformed correlation coefficient (only for “ztest” variant)</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>ValueError</strong> – If <cite>variant</cite> is not one of “ttest” or “ztest”.</p>
 </dd>
@@ -119,15 +164,15 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="critical_es_value.critical_for_linear_regression">
-<span class="sig-prename descclassname"><span class="pre">critical_es_value.</span></span><span class="sig-name descname"><span class="pre">critical_for_linear_regression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.Series</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alternative</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'two-sided'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">confidence</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.95</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variant</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'ttest'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#critical_es_value.critical_for_linear_regression" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">critical_es_value.</span></span><span class="sig-name descname"><span class="pre">critical_for_linear_regression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.Series</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">confidence</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.95</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alternative</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'two-sided'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variant</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'ttest'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#critical_es_value.critical_for_linear_regression" title="Link to this definition">¶</a></dt>
 <dd><p>Calculate critical effect size values for linear regression coefficients.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>X</strong> (<em>pd.DataFrame</em>) – DataFrame containing the independent variables.</p></li>
 <li><p><strong>y</strong> (<em>pd.Series</em>) – Series containing the dependent variable.</p></li>
-<li><p><strong>alternative</strong> (<em>str</em>) – The alternative hypothesis. Either “two-sided”, “greater”, or “less”. Default is “two-sided”.</p></li>
 <li><p><strong>confidence</strong> (<em>float</em>) – Confidence level between 0 and 1 (exclusive). Default is 0.95.</p></li>
+<li><p><strong>alternative</strong> (<em>str</em>) – The alternative hypothesis. Either “two-sided”, “greater”, or “less”. Default is “two-sided”.</p></li>
 <li><p><strong>variant</strong> (<em>str</em>) – The statistical test variant. Either “ttest” or “ztest”. Default is “ttest”.</p></li>
 <li><p><strong>**kwargs</strong> – Additional keyword arguments to pass to pingouin.linear_regression.</p></li>
 </ul>
@@ -146,23 +191,22 @@
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>pd.DataFrame</p>
 </dd>
-<dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>ValueError</strong> – If variant is not one of “ttest” or “ztest”.</p>
-</dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="critical_es_value.critical_for_linear_regression_se_coefficients">
-<span class="sig-prename descclassname"><span class="pre">critical_es_value.</span></span><span class="sig-name descname"><span class="pre">critical_for_linear_regression_se_coefficients</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">se_coefficients</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.typing.ArrayLike</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dof</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alternative</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'two-sided'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">confidence</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.95</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variant</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'ttest'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#critical_es_value.critical_for_linear_regression_se_coefficients" title="Link to this definition">¶</a></dt>
-<dd><p>Calculate critical effect size values for linear regression coefficients.</p>
+<dt class="sig sig-object py" id="critical_es_value.critical_for_linear_regression_from_values">
+<span class="sig-prename descclassname"><span class="pre">critical_es_value.</span></span><span class="sig-name descname"><span class="pre">critical_for_linear_regression_from_values</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coeffs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.typing.ArrayLike</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coeffs_se</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.typing.ArrayLike</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coeffs_names</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.typing.ArrayLike</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dof</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">confidence</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.95</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alternative</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'two-sided'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variant</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'ttest'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#critical_es_value.critical_for_linear_regression_from_values" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate critical effect size values given linear regression coefficients.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>se_coefficients</strong> (<em>ArrayLike</em>) – Standard errors of the regression coefficients.</p></li>
-<li><p><strong>dof</strong> (<em>int</em>) – Degrees of freedom of the model residuals.</p></li>
-<li><p><strong>alternative</strong> (<em>str</em>) – The alternative hypothesis. Either “two-sided”, “greater”, or “less”. Default is “two-sided”.</p></li>
+<li><p><strong>coeffs</strong> (<em>ArrayLike</em>) – Estimated regression coefficients.</p></li>
+<li><p><strong>coeffs_se</strong> (<em>ArrayLike</em>) – Standard errors of the regression coefficients.</p></li>
+<li><p><strong>coeffs_names</strong> (<em>ArrayLike</em>) – Names of the regression coefficients.</p></li>
+<li><p><strong>dof</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – Degrees of freedom of the model residuals. Only used for “ttest” variant.</p></li>
 <li><p><strong>confidence</strong> (<em>float</em>) – Confidence level between 0 and 1 (exclusive). Default is 0.95.</p></li>
+<li><p><strong>alternative</strong> (<em>str</em>) – The alternative hypothesis. Either “two-sided”, “greater”, or “</p></li>
 <li><p><strong>variant</strong> (<em>str</em>) – The statistical test variant. Either “ttest” or “ztest”. Default is “ttest”.</p></li>
 </ul>
 </dd>
@@ -180,14 +224,14 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="critical_es_value.critical_for_one_sample_ttest">
-<span class="sig-prename descclassname"><span class="pre">critical_es_value.</span></span><span class="sig-name descname"><span class="pre">critical_for_one_sample_ttest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.typing.ArrayLike</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alternative</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'two-sided'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">confidence</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.95</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pandas.DataFrame</span></span></span><a class="headerlink" href="#critical_es_value.critical_for_one_sample_ttest" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">critical_es_value.</span></span><span class="sig-name descname"><span class="pre">critical_for_one_sample_ttest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.typing.ArrayLike</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">confidence</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.95</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alternative</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'two-sided'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pandas.DataFrame</span></span></span><a class="headerlink" href="#critical_es_value.critical_for_one_sample_ttest" title="Link to this definition">¶</a></dt>
 <dd><p>Calculate critical effect size values for a one-sample t-test.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>x</strong> (<em>ArrayLike</em>) – Sample data.</p></li>
-<li><p><strong>alternative</strong> (<em>str</em>) – The alternative hypothesis. Either “two-sided”, “greater”, or “less”. Default is “two-sided”.</p></li>
 <li><p><strong>confidence</strong> (<em>float</em>) – Confidence level between 0 and 1 (exclusive). Default is 0.95.</p></li>
+<li><p><strong>alternative</strong> (<em>str</em>) – The alternative hypothesis. Either “two-sided”, “greater”, or “less”. Default is “two-sided”.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -198,9 +242,46 @@
 <li><p><cite>T_critical</cite>: Critical t-value</p></li>
 <li><p><cite>d</cite>: Cohen’s d</p></li>
 <li><p><cite>d_critical</cite>: Critical value for Cohen’s d</p></li>
-<li><p><cite>b_critical</cite>: Critical value for the raw mean difference</p></li>
 <li><p><cite>g</cite>: Hedges’ g</p></li>
 <li><p><cite>g_critical</cite>: Critical value for Hedges’ g</p></li>
+<li><p><cite>b_critical</cite>: Critical value for the raw mean difference</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="critical_es_value.critical_for_one_sample_ttest_from_values">
+<span class="sig-prename descclassname"><span class="pre">critical_es_value.</span></span><span class="sig-name descname"><span class="pre">critical_for_one_sample_ttest_from_values</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dof</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">confidence</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.95</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alternative</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'two-sided'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#critical_es_value.critical_for_one_sample_ttest_from_values" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate critical effect size values for a one-sample t-test given t, sample size and other parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>t</strong> (<em>float</em>) – t-value of the test statistic.</p></li>
+<li><p><strong>n</strong> (<em>int</em>) – Sample size.</p></li>
+<li><p><strong>dof</strong> (<em>int</em>) – Degrees of freedom.</p></li>
+<li><p><strong>confidence</strong> (<em>float</em>) – Confidence level between 0 and 1 (exclusive). Default is 0.95.</p></li>
+<li><p><strong>alternative</strong> (<em>str</em>) – The alternative hypothesis. Either “two-sided”, “greater”, or “less”. Default is “two-sided”.</p></li>
+<li><p><strong>std</strong> (<em>Optional</em><em>[</em><em>float</em><em>]</em>) – Standard deviation of the sample. If None, b_critical will not be calculated. Default is None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>Returns a DataFrame with the following columns:</dt><dd><ul class="simple">
+<li><p><cite>T</cite>: t-value of the test statistic</p></li>
+<li><p><cite>dof</cite>: Degrees of freedom</p></li>
+<li><p><cite>T_critical</cite>: Critical t-value</p></li>
+<li><p><cite>d</cite>: Cohen’s d</p></li>
+<li><p><cite>d_critical</cite>: Critical value for Cohen’s d</p></li>
+<li><p><cite>g</cite>: Hedges’ g</p></li>
+<li><p><cite>g_critical</cite>: Critical value for Hedges’ g</p></li>
+<li><p><cite>b_critical</cite>: Critical value for the raw mean difference</p></li>
 </ul>
 </dd>
 </dl>
@@ -214,7 +295,7 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="critical_es_value.critical_for_two_sample_ttest">
-<span class="sig-prename descclassname"><span class="pre">critical_es_value.</span></span><span class="sig-name descname"><span class="pre">critical_for_two_sample_ttest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.typing.ArrayLike</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.typing.ArrayLike</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">paired</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">correction</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alternative</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'two-sided'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">confidence</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.95</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pandas.DataFrame</span></span></span><a class="headerlink" href="#critical_es_value.critical_for_two_sample_ttest" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">critical_es_value.</span></span><span class="sig-name descname"><span class="pre">critical_for_two_sample_ttest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.typing.ArrayLike</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.typing.ArrayLike</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">paired</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">correction</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">confidence</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.95</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alternative</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'two-sided'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pandas.DataFrame</span></span></span><a class="headerlink" href="#critical_es_value.critical_for_two_sample_ttest" title="Link to this definition">¶</a></dt>
 <dd><p>Calculate critical effect size values for a paired or an unpaired two-sample t-test.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -226,8 +307,8 @@
 using Welch separate variances T-test. If “auto”, it will automatically uses Welch T-test when the sample
 sizes are unequal. For paired T-tests, this parameter is ignored and no correction is performed. Default
 is “auto”.</p></li>
-<li><p><strong>alternative</strong> (<em>str</em>) – The alternative hypothesis. Either “two-sided”, “greater”, or “less”. Default is “two-sided”.</p></li>
 <li><p><strong>confidence</strong> (<em>float</em>) – Confidence level between 0 and 1 (exclusive). Default is 0.95.</p></li>
+<li><p><strong>alternative</strong> (<em>str</em>) – The alternative hypothesis. Either “two-sided”, “greater”, or “less”. Default is “two-sided”.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -238,9 +319,57 @@ is “auto”.</p></li>
 <li><p><cite>T_critical</cite>: Critical t-value</p></li>
 <li><p><cite>d</cite>: Cohen’s d</p></li>
 <li><p><cite>d_critical</cite>: Critical value for Cohen’s d</p></li>
-<li><p><cite>b_critical</cite>: Critical value for the raw mean difference</p></li>
 <li><p><cite>g</cite>: Hedges’ g</p></li>
 <li><p><cite>g_critical</cite>: Critical value for Hedges’ g</p></li>
+<li><p><cite>b_critical</cite>: Critical value for the raw mean difference</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="critical_es_value.critical_for_two_sample_ttest_from_values">
+<span class="sig-prename descclassname"><span class="pre">critical_es_value.</span></span><span class="sig-name descname"><span class="pre">critical_for_two_sample_ttest_from_values</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dof</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">std1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">std2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">paired</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">correction</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">confidence</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.95</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alternative</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'two-sided'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pandas.DataFrame</span></span></span><a class="headerlink" href="#critical_es_value.critical_for_two_sample_ttest_from_values" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate critical effect size values for a paired or an unpaired two-sample t-test given t, sample sizes and other parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>t</strong> (<em>float</em>) – t-value of the test statistic.</p></li>
+<li><p><strong>n1</strong> (<em>int</em>) – Sample size of group 1.</p></li>
+<li><p><strong>n2</strong> (<em>int</em>) – Sample size of group 2.</p></li>
+<li><p><strong>dof</strong> (<em>int</em>) – Degrees of freedom.</p></li>
+<li><p><strong>std1</strong> (<em>Optional</em><em>[</em><em>float</em><em>]</em>) – Standard deviation of group 1. If None, b_critical will not be calculated. Default is None.</p></li>
+<li><p><strong>std2</strong> (<em>Optional</em><em>[</em><em>float</em><em>]</em>) – Standard deviation of group 2. If None, b_critical will not be calculated. Default is None.</p></li>
+<li><p><strong>paired</strong> (<em>bool</em>) – Whether the samples are paired. Default is False.</p></li>
+<li><p><strong>correction</strong> (<em>bool</em>) – For unpaired two sample T-tests, specify whether or not to correct for unequal variances
+using Welch separate variances T-test. If “auto”, it will automatically uses Welch T-test when the sample
+sizes are unequal. For paired T-tests, this parameter is ignored and no correction is performed. Default
+is “auto”.</p></li>
+<li><p><strong>confidence</strong> (<em>float</em>) – Confidence level between 0 and 1 (exclusive). Default is 0.95.</p></li>
+<li><p><strong>alternative</strong> (<em>str</em>) – The alternative hypothesis. Either “two-sided”, “greater”, or “less”. Default is “two-sided”.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>Returns a DataFrame with the following columns:</dt><dd><ul class="simple">
+<li><p><cite>T</cite>: t-value of the test statistic</p></li>
+<li><p><cite>dof</cite>: Degrees of freedom</p></li>
+<li><p><cite>T_critical</cite>: Critical t-value</p></li>
+<li><p><cite>d</cite>: Cohen’s d</p></li>
+<li><p><cite>d_critical</cite>: Critical value for Cohen’s d</p></li>
+<li><p><cite>g</cite>: Hedges’ g</p></li>
+<li><p><cite>g_critical</cite>: Critical value for Hedges’ g</p></li>
+<li><p><cite>dz</cite>: Cohen’s dz (only for paired tests)</p></li>
+<li><p><cite>dz_critical</cite>: Critical value for Cohen’s dz (only for paired tests)</p></li>
+<li><p><cite>gz</cite>: Hedges’ gz (only for paired tests)</p></li>
+<li><p><cite>gz_critical</cite>: Critical value for Hedges’ gz (only for paired tests)</p></li>
+<li><p><cite>b_critical</cite>: Critical value for the raw mean difference</p></li>
 </ul>
 </dd>
 </dl>

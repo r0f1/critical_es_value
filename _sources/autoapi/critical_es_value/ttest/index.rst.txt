@@ -10,8 +10,11 @@ Functions
 .. autoapisummary::
 
    critical_es_value.ttest.determine_welch_correction
+   critical_es_value.ttest.critical_for_one_sample_ttest_from_values
    critical_es_value.ttest.critical_for_one_sample_ttest
-   critical_es_value.ttest._critical_for_two_sample_ttest_paired
+   critical_es_value.ttest._critical_for_two_sample_ttest_unpaired_from_values
+   critical_es_value.ttest._critical_for_two_sample_ttest_paired_from_values
+   critical_es_value.ttest.critical_for_two_sample_ttest_from_values
    critical_es_value.ttest.critical_for_two_sample_ttest
 
 
@@ -37,16 +40,47 @@ Module Contents
    :raises ValueError: If `correction` is not one of True, False, or "auto".
 
 
-.. py:function:: critical_for_one_sample_ttest(x: numpy.typing.ArrayLike, alternative: str = 'two-sided', confidence: float = 0.95) -> pandas.DataFrame
+.. py:function:: critical_for_one_sample_ttest_from_values(t: float, n: int, dof: int, confidence: float = 0.95, alternative: str = 'two-sided', std: Optional[float] = None)
+
+   Calculate critical effect size values for a one-sample t-test given t, sample size and other parameters.
+
+   :param t: t-value of the test statistic.
+   :type t: float
+   :param n: Sample size.
+   :type n: int
+   :param dof: Degrees of freedom.
+   :type dof: int
+   :param confidence: Confidence level between 0 and 1 (exclusive). Default is 0.95.
+   :type confidence: float
+   :param alternative: The alternative hypothesis. Either "two-sided", "greater", or "less". Default is "two-sided".
+   :type alternative: str
+   :param std: Standard deviation of the sample. If None, b_critical will not be calculated. Default is None.
+   :type std: Optional[float]
+
+   :returns:
+
+             Returns a DataFrame with the following columns:
+                 - `T`: t-value of the test statistic
+                 - `dof`: Degrees of freedom
+                 - `T_critical`: Critical t-value
+                 - `d`: Cohen's d
+                 - `d_critical`: Critical value for Cohen's d
+                 - `g`: Hedges' g
+                 - `g_critical`: Critical value for Hedges' g
+                 - `b_critical`: Critical value for the raw mean difference
+   :rtype: pd.DataFrame
+
+
+.. py:function:: critical_for_one_sample_ttest(x: numpy.typing.ArrayLike, confidence: float = 0.95, alternative: str = 'two-sided') -> pandas.DataFrame
 
    Calculate critical effect size values for a one-sample t-test.
 
    :param x: Sample data.
    :type x: ArrayLike
-   :param alternative: The alternative hypothesis. Either "two-sided", "greater", or "less". Default is "two-sided".
-   :type alternative: str
    :param confidence: Confidence level between 0 and 1 (exclusive). Default is 0.95.
    :type confidence: float
+   :param alternative: The alternative hypothesis. Either "two-sided", "greater", or "less". Default is "two-sided".
+   :type alternative: str
 
    :returns:
 
@@ -56,24 +90,69 @@ Module Contents
                  - `T_critical`: Critical t-value
                  - `d`: Cohen's d
                  - `d_critical`: Critical value for Cohen's d
-                 - `b_critical`: Critical value for the raw mean difference
                  - `g`: Hedges' g
                  - `g_critical`: Critical value for Hedges' g
+                 - `b_critical`: Critical value for the raw mean difference
    :rtype: pd.DataFrame
 
 
-.. py:function:: _critical_for_two_sample_ttest_paired(x: numpy.typing.ArrayLike, y: numpy.typing.ArrayLike, alternative: str = 'two-sided', confidence: float = 0.95) -> pandas.DataFrame
+.. py:function:: _critical_for_two_sample_ttest_unpaired_from_values(t: float, n1: int, n2: int, dof: int, std1: Optional[float] = None, std2: Optional[float] = None, correction: Union[bool, str] = 'auto', confidence: float = 0.95, alternative: str = 'two-sided') -> pandas.DataFrame
 
-   Calculate critical effect size values for a PAIRED two-sample t-test.
+   Calculate critical effect size values for UNPAIRED two-sample t-test given t, sample sizes and other parameters.
 
-   :param x: Sample data for group 1.
-   :type x: ArrayLike
-   :param y: Sample data for group 2.
-   :type y: ArrayLike
-   :param alternative: The alternative hypothesis. Either "two-sided", "greater", or "less". Default is "two-sided".
-   :type alternative: str
+   :param t: t-value of the test statistic.
+   :type t: float
+   :param n1: Sample size of group 1.
+   :type n1: int
+   :param n2: Sample size of group 2.
+   :type n2: int
+   :param dof: Degrees of freedom.
+   :type dof: int
+   :param std1: Standard deviation of group 1. If None, b_critical will not be calculated. Default is None.
+   :type std1: Optional[float]
+   :param std2: Standard deviation of group 2. If None, b_critical will not be calculated. Default is None.
+   :type std2: Optional[float]
+   :param correction: Specify whether or not to correct for unequal variances using Welch separate variances
+                      T-test. If "auto", it will automatically uses Welch T-test when the sample sizes are unequal. Default
+                      is "auto".
+   :type correction: bool
    :param confidence: Confidence level between 0 and 1 (exclusive). Default is 0.95.
    :type confidence: float
+   :param alternative: The alternative hypothesis. Either "two-sided", "greater", or "less". Default is "two-sided".
+   :type alternative: str
+
+   :returns:
+
+             Returns a DataFrame with the following columns:
+                - `T`: t-value of the test statistic
+                - `dof`: Degrees of freedom
+                - `T_critical`: Critical t-value
+                - `d`: Cohen's d
+                - `d_critical`: Critical value for Cohen's d
+                - `g`: Hedges' g
+                - `g_critical`: Critical value for Hedges' g
+                - `b_critical`: Critical value for the raw mean difference (if std1 and std2 are provided)
+   :rtype: pd.DataFrame
+
+
+.. py:function:: _critical_for_two_sample_ttest_paired_from_values(t: float, n: int, dof: int, r12: float, confidence: float = 0.95, alternative: str = 'two-sided', std_diff: Optional[float] = None) -> pandas.DataFrame
+
+   Calculate critical effect size values for a PAIRED two-sample t-test given t, sample sizes and other parameters.
+
+   :param t: t-value of the test statistic.
+   :type t: float
+   :param n: Sample sizes of both groups.
+   :type n: int
+   :param dof: Degrees of freedom.
+   :type dof: int
+   :param r12: Pearson correlation between the two groups.
+   :type r12: float
+   :param confidence: Confidence level between 0 and 1 (exclusive). Default is 0.95.
+   :type confidence: float
+   :param alternative: The alternative hypothesis. Either "two-sided", "greater", or "less". Default is "two-sided".
+   :type alternative: str
+   :param std_diff: Standard deviation of the difference scores. If None, b_critical will not be calculated. Default is None.
+   :type std_diff: Optional[float]
 
    :returns:
 
@@ -83,17 +162,63 @@ Module Contents
                  - `T_critical`: Critical t-value
                  - `d`: Cohen's d
                  - `d_critical`: Critical value for Cohen's d
-                 - `b_critical`: Critical value for the raw mean difference
                  - `g`: Hedges' g
                  - `g_critical`: Critical value for Hedges' g
                  - `dz`: Cohen's dz
                  - `dz_critical`: Critical value for Cohen's dz
                  - `gz`: Hedges' gz
                  - `gz_critical`: Critical value for Hedges' gz
+                 - `b_critical`: Critical value for the raw mean difference (if std_diff is provided)
    :rtype: pd.DataFrame
 
 
-.. py:function:: critical_for_two_sample_ttest(x: numpy.typing.ArrayLike, y: numpy.typing.ArrayLike, paired: bool = False, correction: Union[bool, str] = 'auto', alternative: str = 'two-sided', confidence: float = 0.95) -> pandas.DataFrame
+.. py:function:: critical_for_two_sample_ttest_from_values(t: float, n1: int, n2: int, dof: int, std1: Optional[float] = None, std2: Optional[float] = None, paired: bool = False, correction: Union[bool, str] = 'auto', confidence: float = 0.95, alternative: str = 'two-sided') -> pandas.DataFrame
+
+   Calculate critical effect size values for a paired or an unpaired two-sample t-test given t, sample sizes and other parameters.
+
+   :param t: t-value of the test statistic.
+   :type t: float
+   :param n1: Sample size of group 1.
+   :type n1: int
+   :param n2: Sample size of group 2.
+   :type n2: int
+   :param dof: Degrees of freedom.
+   :type dof: int
+   :param std1: Standard deviation of group 1. If None, b_critical will not be calculated. Default is None.
+   :type std1: Optional[float]
+   :param std2: Standard deviation of group 2. If None, b_critical will not be calculated. Default is None.
+   :type std2: Optional[float]
+   :param paired: Whether the samples are paired. Default is False.
+   :type paired: bool
+   :param correction: For unpaired two sample T-tests, specify whether or not to correct for unequal variances
+                      using Welch separate variances T-test. If "auto", it will automatically uses Welch T-test when the sample
+                      sizes are unequal. For paired T-tests, this parameter is ignored and no correction is performed. Default
+                      is "auto".
+   :type correction: bool
+   :param confidence: Confidence level between 0 and 1 (exclusive). Default is 0.95.
+   :type confidence: float
+   :param alternative: The alternative hypothesis. Either "two-sided", "greater", or "less". Default is "two-sided".
+   :type alternative: str
+
+   :returns:
+
+             Returns a DataFrame with the following columns:
+                - `T`: t-value of the test statistic
+                - `dof`: Degrees of freedom
+                - `T_critical`: Critical t-value
+                - `d`: Cohen's d
+                - `d_critical`: Critical value for Cohen's d
+                - `g`: Hedges' g
+                - `g_critical`: Critical value for Hedges' g
+                - `dz`: Cohen's dz (only for paired tests)
+                - `dz_critical`: Critical value for Cohen's dz (only for paired tests)
+                - `gz`: Hedges' gz (only for paired tests)
+                - `gz_critical`: Critical value for Hedges' gz (only for paired tests)
+                - `b_critical`: Critical value for the raw mean difference
+   :rtype: pd.DataFrame
+
+
+.. py:function:: critical_for_two_sample_ttest(x: numpy.typing.ArrayLike, y: numpy.typing.ArrayLike, paired: bool = False, correction: Union[bool, str] = 'auto', confidence: float = 0.95, alternative: str = 'two-sided') -> pandas.DataFrame
 
    Calculate critical effect size values for a paired or an unpaired two-sample t-test.
 
@@ -108,10 +233,10 @@ Module Contents
                       sizes are unequal. For paired T-tests, this parameter is ignored and no correction is performed. Default
                       is "auto".
    :type correction: bool
-   :param alternative: The alternative hypothesis. Either "two-sided", "greater", or "less". Default is "two-sided".
-   :type alternative: str
    :param confidence: Confidence level between 0 and 1 (exclusive). Default is 0.95.
    :type confidence: float
+   :param alternative: The alternative hypothesis. Either "two-sided", "greater", or "less". Default is "two-sided".
+   :type alternative: str
 
    :returns:
 
@@ -121,9 +246,9 @@ Module Contents
                 - `T_critical`: Critical t-value
                 - `d`: Cohen's d
                 - `d_critical`: Critical value for Cohen's d
-                - `b_critical`: Critical value for the raw mean difference
                 - `g`: Hedges' g
                 - `g_critical`: Critical value for Hedges' g
+                - `b_critical`: Critical value for the raw mean difference
    :rtype: pd.DataFrame
 
 
