@@ -1,46 +1,3 @@
-<style>
-table {
-    border-collapse: collapse;
-    border: 2px solid rgb(140 140 140);
-    font-family: sans-serif;
-    font-size: 0.8rem;
-    letter-spacing: 1px;
-}
-
-caption {
-    caption-side: bottom;
-    padding: 10px;
-    font-weight: bold;
-}
-
-thead,
-tfoot {
-    background-color: rgb(228 240 245);
-}
-
-th,
-td {
-    border: 1px solid rgb(160 160 160);
-    padding: 8px 10px;
-}
-
-td:last-of-type {
-    text-align: center;
-}
-
-tbody > tr:nth-of-type(even) {
-    background-color: rgb(237 238 242);
-}
-
-tfoot th {
-    text-align: right;
-}
-
-tfoot td {
-    font-weight: bold;
-}
-</style>
-
 # critical_es_value
 
 Calculate critical effect size values for t-Tests, correlation tests and linear regression coefficients.
@@ -143,7 +100,7 @@ critical_for_linear_regression(data[["X", "Z"]], data["Y"])
 
 ## Resources
 
-* [R package](https://psicostat.github.io/criticalESvalue/index.html)
+* [R package](https://github.com/psicostat/criticalESvalue)
 * [Original paper](https://journals.sagepub.com/doi/10.1177/25152459251335298?icid=int.sj-full-text.similar-articles.5)
 > Perugini, A., Gambarota, F., Toffalini, E., Lakens, D., Pastore, M., Finos, L., ... & Altoè, G. (2025). The Benefits of Reporting Critical-Effect-Size Values. Advances in Methods and Practices in Psychological Science, 8(2), 25152459251335298.
 
