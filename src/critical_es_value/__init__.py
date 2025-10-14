@@ -8,7 +8,9 @@ from .linreg import (
 )
 from .ttest import (
     critical_for_one_sample_ttest,
+    critical_for_one_sample_ttest_from_values,
     critical_for_two_sample_ttest,
+    critical_for_two_sample_ttest_from_values,
 )
 from .utils import (
     get_alpha,
