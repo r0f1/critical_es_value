@@ -1,0 +1,70 @@
+critical_es_value.utils
+=======================
+
+.. py:module:: critical_es_value.utils
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   critical_es_value.utils.get_alpha
+   critical_es_value.utils.get_bias_correction_factor_J
+
+
+Module Contents
+---------------
+
+.. py:function:: get_alpha(confidence: float, alternative: str) -> float
+
+   Calculate the significance level (alpha) corresponding to a given confidence level.
+
+   .. math::
+
+       \alpha = \begin{cases}
+           1 - \text{conf} & \text{one-sided} \\
+           \frac{1 - \text{conf}}{2} & \text{two-sided}
+       \end{cases}
+
+   :param confidence: Confidence level between 0 and 1 (exclusive).
+   :type confidence: float
+   :param alternative: The alternative hypothesis. Either "two-sided", "greater", or "less".
+   :type alternative: str
+
+   :returns: The significance level (alpha).
+   :rtype: float
+
+   :raises ValueError: If `confidence` is not in (0, 1)
+   :raises ValueError: If `alternative` is not one of "two-sided", "greater", or "less".
+
+   .. rubric:: Examples
+
+   >>> get_alpha(0.95, "two-sided")
+   0.025
+   >>> get_alpha(0.95, "less")
+   0.05
+
+
+.. py:function:: get_bias_correction_factor_J(dof: int) -> numpy.float64
+
+   Calculate the bias correction factor J for Hedges' g.
+
+   .. math::
+
+       J(x) = \frac{\Gamma\left(\frac{x}{2}\right)}{\sqrt{\frac{x}{2}}\Gamma\left(\frac{x-1}{2}\right)}
+
+   :param dof: Degrees of freedom.
+   :type dof: int
+
+   :returns: The bias correction factor J.
+   :rtype: np.float64
+
+   .. rubric:: Examples
+
+   >>> get_bias_correction_factor_J(10)
+   0.92274560805
+   >>> get_bias_correction_factor_J(20)
+   0.96194453374
+
+
