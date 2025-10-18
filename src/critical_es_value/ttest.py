@@ -283,6 +283,7 @@ def critical_for_two_sample_ttest_from_values(
     std1: Optional[float] = None,
     std2: Optional[float] = None,
     paired: bool = False,
+    r12: Optional[float] = None,
     correction: Union[bool, str] = "auto",
     confidence: float = 0.95,
     alternative: str = "two-sided",
@@ -294,9 +295,13 @@ def critical_for_two_sample_ttest_from_values(
         n1 (int): Sample size of group 1.
         n2 (int): Sample size of group 2.
         dof (int): Degrees of freedom.
-        std1 (Optional[float]): Standard deviation of group 1. If None, b_critical will not be calculated. Default is None.
-        std2 (Optional[float]): Standard deviation of group 2. If None, b_critical will not be calculated. Default is None.
+        std1 (Optional[float]): Standard deviation of group 1. If None, b_critical will not be calculated.
+            For paired T-test, the standard deviation of the difference. Default is None.
+        std2 (Optional[float]): Standard deviation of group 2. If None, b_critical will not be calculated.
+            For paired T-test, this parameter is ignored. Default is None.
         paired (bool): Whether the samples are paired. Default is False.
+        r12 (Optional[float]): For paired T-test, Pearson correlation between the two groups. For unpaired T-test,
+            this parameter is ignored. Default is None.
         correction (bool): For unpaired two sample T-tests, specify whether or not to correct for unequal variances
             using Welch separate variances T-test. If "auto", it will automatically uses Welch T-test when the sample
             sizes are unequal. For paired T-tests, this parameter is ignored and no correction is performed. Default
@@ -320,13 +325,19 @@ def critical_for_two_sample_ttest_from_values(
            - `b_critical`: Critical value for the raw mean difference
     """
     if paired:
+        if n1 != n2:
+            raise ValueError("For paired tests, n1 and n2 must be equal.")
+        if r12 is None:
+            raise ValueError("For paired tests, r12 cannot be None.")
+
         return _critical_for_two_sample_ttest_paired_from_values(
             t=t,
-            n1=n1,
-            n2=n2,
+            n=n1,
             dof=dof,
+            r12=r12,
             confidence=confidence,
             alternative=alternative,
+            std_diff=std1,
         )
 
     return _critical_for_two_sample_ttest_unpaired_from_values(
