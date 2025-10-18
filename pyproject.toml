@@ -38,3 +38,6 @@ pythonpath = ["src"]
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/critical_es_value"]
+
+[tool.ruff]
+line-length = 120

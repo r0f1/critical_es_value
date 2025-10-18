@@ -179,13 +179,6 @@ def _critical_for_two_sample_ttest_unpaired_from_values(
         tc *= -1
     dc = tc * factor
 
-    if std1 is not None and std2 is not None:
-        if determine_welch_correction(correction, n1=n1, n2=n2):
-            se = np.sqrt((std1**2 / n1) + (std2**2 / n2))
-        else:
-            se = np.sqrt((std1**2 * (n1 - 1) + std2**2 * (n2 - 1)) / (n1 + n2 - 2))
-            se *= factor
-
     j = utils.get_bias_correction_factor_J(dof)
 
     result = {
@@ -198,6 +191,10 @@ def _critical_for_two_sample_ttest_unpaired_from_values(
         "g_critical": dc * j,
     }
     if std1 is not None and std2 is not None:
+        if determine_welch_correction(correction, n1=n1, n2=n2):
+            se = np.sqrt((std1**2 / n1) + (std2**2 / n2))
+        else:
+            se = np.sqrt((std1**2 * (n1 - 1) + std2**2 * (n2 - 1)) / (n1 + n2 - 2)) * factor
         result["b_critical"] = tc * se
 
     return pd.DataFrame([result], index=["critical"])
