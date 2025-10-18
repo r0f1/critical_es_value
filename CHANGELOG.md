@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.0](https://github.com/r0f1/critical_es_value/compare/v0.3.1...v0.4.0) (2025-10-18)
+
+
+### Features
+
+* Various improvements ([#11](https://github.com/r0f1/critical_es_value/issues/11)) ([a2401b3](https://github.com/r0f1/critical_es_value/commit/a2401b311448d3d3e20b2b89d514162f34194860))
+
 ## [0.3.1](https://github.com/r0f1/critical_es_value/compare/v0.3.0...v0.3.1) (2025-10-14)
 
 
