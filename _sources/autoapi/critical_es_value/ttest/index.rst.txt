@@ -28,7 +28,7 @@ Module Contents
    :param correction: If True, always apply Welch's correction.
                       If False, never apply Welch's correction.
                       If "auto", apply Welch's correction only if sample sizes are unequal.
-   :type correction: bool or str
+   :type correction: Union[bool, str]
    :param n1: Sample size of group 1.
    :type n1: int
    :param n2: Sample size of group 2.
@@ -40,7 +40,7 @@ Module Contents
    :raises ValueError: If `correction` is not one of True, False, or "auto".
 
 
-.. py:function:: critical_for_one_sample_ttest_from_values(t: float, n: int, dof: int, confidence: float = 0.95, alternative: str = 'two-sided', std: Optional[float] = None)
+.. py:function:: critical_for_one_sample_ttest_from_values(t: float, n: int, dof: int, confidence: float = 0.95, alternative: str = 'two-sided', std: Optional[float] = None) -> pandas.DataFrame
 
    Calculate critical effect size values for a one-sample t-test given t, sample size and other parameters.
 
@@ -115,7 +115,7 @@ Module Contents
    :param correction: Specify whether or not to correct for unequal variances using Welch separate variances
                       T-test. If "auto", it will automatically uses Welch T-test when the sample sizes are unequal. Default
                       is "auto".
-   :type correction: bool
+   :type correction: Union[bool, str]
    :param confidence: Confidence level between 0 and 1 (exclusive). Default is 0.95.
    :type confidence: float
    :param alternative: The alternative hypothesis. Either "two-sided", "greater", or "less". Default is "two-sided".
@@ -172,7 +172,7 @@ Module Contents
    :rtype: pd.DataFrame
 
 
-.. py:function:: critical_for_two_sample_ttest_from_values(t: float, n1: int, n2: int, dof: int, std1: Optional[float] = None, std2: Optional[float] = None, paired: bool = False, correction: Union[bool, str] = 'auto', confidence: float = 0.95, alternative: str = 'two-sided') -> pandas.DataFrame
+.. py:function:: critical_for_two_sample_ttest_from_values(t: float, n1: int, n2: int, dof: int, std1: Optional[float] = None, std2: Optional[float] = None, paired: bool = False, r12: Optional[float] = None, correction: Union[bool, str] = 'auto', confidence: float = 0.95, alternative: str = 'two-sided') -> pandas.DataFrame
 
    Calculate critical effect size values for a paired or an unpaired two-sample t-test given t, sample sizes and other parameters.
 
@@ -184,17 +184,22 @@ Module Contents
    :type n2: int
    :param dof: Degrees of freedom.
    :type dof: int
-   :param std1: Standard deviation of group 1. If None, b_critical will not be calculated. Default is None.
+   :param std1: Standard deviation of group 1. If None, b_critical will not be calculated.
+                For paired T-test, the standard deviation of the difference. Default is None.
    :type std1: Optional[float]
-   :param std2: Standard deviation of group 2. If None, b_critical will not be calculated. Default is None.
+   :param std2: Standard deviation of group 2. If None, b_critical will not be calculated.
+                For paired T-test, this parameter is ignored. Default is None.
    :type std2: Optional[float]
    :param paired: Whether the samples are paired. Default is False.
    :type paired: bool
+   :param r12: For paired T-test, Pearson correlation between the two groups. For unpaired T-test,
+               this parameter is ignored. Default is None.
+   :type r12: Optional[float]
    :param correction: For unpaired two sample T-tests, specify whether or not to correct for unequal variances
                       using Welch separate variances T-test. If "auto", it will automatically uses Welch T-test when the sample
                       sizes are unequal. For paired T-tests, this parameter is ignored and no correction is performed. Default
                       is "auto".
-   :type correction: bool
+   :type correction: Union[bool, str]
    :param confidence: Confidence level between 0 and 1 (exclusive). Default is 0.95.
    :type confidence: float
    :param alternative: The alternative hypothesis. Either "two-sided", "greater", or "less". Default is "two-sided".
@@ -217,6 +222,8 @@ Module Contents
                 - `b_critical`: Critical value for the raw mean difference
    :rtype: pd.DataFrame
 
+   :raises ValueError: If for paired tests, n1 != n2 or if r12 is None.
+
 
 .. py:function:: critical_for_two_sample_ttest(x: numpy.typing.ArrayLike, y: numpy.typing.ArrayLike, paired: bool = False, correction: Union[bool, str] = 'auto', confidence: float = 0.95, alternative: str = 'two-sided') -> pandas.DataFrame
 
@@ -228,11 +235,11 @@ Module Contents
    :type y: ArrayLike
    :param paired: Whether the samples are paired. Default is False.
    :type paired: bool
-   :param correction: For unpaired two sample T-tests, specify whether or not to correct for unequal variances
-                      using Welch separate variances T-test. If "auto", it will automatically uses Welch T-test when the sample
-                      sizes are unequal. For paired T-tests, this parameter is ignored and no correction is performed. Default
-                      is "auto".
-   :type correction: bool
+   :param correction: For unpaired two sample T-tests, specify whether or not to correct for unequal
+                      variances using Welch separate variances T-test. If "auto", it will automatically uses Welch T-test when
+                      the sample sizes are unequal. For paired T-tests, this parameter is ignored and no correction is performed.
+                      Default is "auto".
+   :type correction: Union[bool, str]
    :param confidence: Confidence level between 0 and 1 (exclusive). Default is 0.95.
    :type confidence: float
    :param alternative: The alternative hypothesis. Either "two-sided", "greater", or "less". Default is "two-sided".
@@ -250,5 +257,7 @@ Module Contents
                 - `g_critical`: Critical value for Hedges' g
                 - `b_critical`: Critical value for the raw mean difference
    :rtype: pd.DataFrame
+
+   :raises ValueError: If for paired tests, lengths of x and y are not equal.
 
 

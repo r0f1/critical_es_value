@@ -35,8 +35,7 @@ Module Contents
    :returns: The significance level (alpha).
    :rtype: float
 
-   :raises ValueError: If `confidence` is not in (0, 1)
-   :raises ValueError: If `alternative` is not one of "two-sided", "greater", or "less".
+   :raises ValueError: If `confidence` is not in (0, 1) or if `alternative` is not one of "two-sided", "greater", or "less".
 
    .. rubric:: Examples
 
@@ -59,6 +58,8 @@ Module Contents
 
    :returns: The bias correction factor J.
    :rtype: np.float64
+
+   :raises ValueError: If dof is <= 1.
 
    .. rubric:: Examples
 

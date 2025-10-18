@@ -16,7 +16,7 @@ Functions
 Module Contents
 ---------------
 
-.. py:function:: critical_for_linear_regression_from_values(coeffs: numpy.typing.ArrayLike, coeffs_se: numpy.typing.ArrayLike, coeffs_names: numpy.typing.ArrayLike, dof: Optional[int] = None, confidence: float = 0.95, alternative: str = 'two-sided', variant: str = 'ttest') -> list[float]
+.. py:function:: critical_for_linear_regression_from_values(coeffs: numpy.typing.ArrayLike, coeffs_se: numpy.typing.ArrayLike, coeffs_names: numpy.typing.ArrayLike, dof: Optional[int] = None, confidence: float = 0.95, alternative: str = 'two-sided', variant: str = 'ttest') -> pandas.DataFrame
 
    Calculate critical effect size values given linear regression coefficients.
 
@@ -36,12 +36,12 @@ Module Contents
    :type variant: str
 
    :returns: An array containing critical effect size values for each coefficient.
-   :rtype: np.ndarray
+   :rtype: pd.DataFrame
 
    :raises ValueError: If variant is not one of "ttest" or "ztest".
 
 
-.. py:function:: critical_for_linear_regression(X: pandas.DataFrame, y: pandas.Series, confidence: float = 0.95, alternative: str = 'two-sided', variant: str = 'ttest', **kwargs)
+.. py:function:: critical_for_linear_regression(X: pandas.DataFrame, y: pandas.Series, confidence: float = 0.95, alternative: str = 'two-sided', variant: str = 'ttest', **kwargs) -> pandas.DataFrame
 
    Calculate critical effect size values for linear regression coefficients.
 
