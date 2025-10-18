@@ -1,6 +1,8 @@
 import pandas as pd
 import pytest
 
+pytest_plugins = "scipy_doctest"
+
 
 @pytest.fixture
 def test_dataset1():

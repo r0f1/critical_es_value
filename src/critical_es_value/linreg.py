@@ -34,6 +34,28 @@ def critical_for_linear_regression_from_values(
 
     Raises:
         ValueError: If variant is not one of "ttest" or "ztest".
+
+    Examples:
+        >>> import pandas as pd
+        >>> import pingouin as pg
+        >>> import critical_es_value as cev
+        >>> df = pd.DataFrame({
+        ...    "x1": [1,2,3,4,5,6],
+        ...    "x2": [2,2,2,3,3,3],
+        ...    "y": [3,4,5,6,7,8],
+        ... })
+        >>> model = pg.linear_regression(df[["x1", "x2"]], df["y"])
+        >>> cev.critical_for_linear_regression_from_values(
+        ...     coeffs=model["coef"].values,
+        ...     coeffs_se=model["se"].values,
+        ...     coeffs_names=model["names"].values,
+        ...     dof=model.df_resid_,
+        ...     variant="ttest",
+        ... )
+               names          coef  coef_critical
+        0  Intercept  2.000000e+00   1.082596e-14
+        1         x1  1.000000e+00   1.875111e-15
+        2         x2  1.527841e-15   6.404723e-15
     """
     alpha = utils.get_alpha(confidence, alternative)
 
@@ -81,6 +103,20 @@ def critical_for_linear_regression(
             - `names`: Names of the regression coefficients
             - `coef`: Estimated regression coefficients
             - `coef_critical`: Critical value for the regression coefficients
+
+    Examples:
+        >>> import pandas as pd
+        >>> import critical_es_value as cev
+        >>> df = pd.DataFrame({
+        ...    "x1": [1,2,3,4,5,6],
+        ...    "x2": [2,2,2,3,3,3],
+        ...    "y": [3,4,5,6,7,8],
+        ... })
+        >>> cev.critical_for_linear_regression(df[["x1", "x2"]], df["y"])
+               names          coef  coef_critical
+        0  Intercept  2.000000e+00   1.082596e-14
+        1         x1  1.000000e+00   1.875111e-15
+        2         x2  1.527841e-15   6.404723e-15
     """
     alpha = utils.get_alpha(confidence, alternative)
     model = pingouin.linear_regression(X=X, y=y, alpha=alpha, **kwargs)

@@ -24,6 +24,15 @@ def determine_welch_correction(correction: Union[bool, str], n1: int, n2: int) -
 
     Raises:
         ValueError: If `correction` is not one of True, False, or "auto".
+
+    Examples:
+        >>> import critical_es_value as cev
+        >>> cev.determine_welch_correction("auto", 5, 10)
+        True
+        >>> cev.determine_welch_correction(True, 5, 10)
+        True
+        >>> cev.determine_welch_correction(False, 5, 10)
+        False
     """
     if correction not in (True, False, "auto"):
         raise ValueError("correction must be one of True, False, or 'auto'")
@@ -60,6 +69,28 @@ def critical_for_one_sample_ttest_from_values(
             - `g`: Hedges' g
             - `g_critical`: Critical value for Hedges' g
             - `b_critical`: Critical value for the raw mean difference
+
+    Examples:
+        >>> import numpy as np
+        >>> import pingouin as pg
+        >>> import critical_es_value as cev
+        >>> x = [1,2,3,4,5,6]
+        >>> t_test_result = pg.ttest(x, 0, paired=False).iloc[0]
+        >>> cev.critical_for_one_sample_ttest_from_values(
+        ...    t=t_test_result["T"],
+        ...    n=len(x),
+        ...    dof=t_test_result.dof,
+        ...    std=np.std(x, ddof=1),
+        ... ).T
+                    critical
+        T           4.582576
+        dof         5.000000
+        T_critical  2.570582
+        d           1.870829
+        d_critical  1.049436
+        g           1.572897
+        g_critical  0.882312
+        b_critical  1.963314
     """
     alpha = utils.get_alpha(confidence, alternative)
 
@@ -110,6 +141,20 @@ def critical_for_one_sample_ttest(
             - `g`: Hedges' g
             - `g_critical`: Critical value for Hedges' g
             - `b_critical`: Critical value for the raw mean difference
+
+    Examples:
+        >>> import critical_es_value as cev
+        >>> x = [1,2,3,4,5,6]
+        >>> cev.critical_for_one_sample_ttest(x).T
+                    critical
+        T           4.582576
+        dof         5.000000
+        T_critical  2.570582
+        d           1.870829
+        d_critical  1.049436
+        g           1.572897
+        g_critical  0.882312
+        b_critical  1.963314
     """
 
     t_test_result = pingouin.ttest(
@@ -323,6 +368,32 @@ def critical_for_two_sample_ttest_from_values(
 
     Raises:
         ValueError: If for paired tests, n1 != n2 or if r12 is None.
+
+    Examples:
+        >>> import numpy as np
+        >>> import pingouin as pg
+        >>> import critical_es_value as cev
+        >>> x = [1,2,3,4,5,6]
+        >>> y = [2,2,2,3,3,3]
+        >>> t_test_result = pg.ttest(x, y, paired=False).iloc[0]
+        >>> cev.critical_for_two_sample_ttest_from_values(
+        ...    t=t_test_result["T"],
+        ...    n1=len(x),
+        ...    n2=len(y),
+        ...    dof=t_test_result.dof,
+        ...    paired=False,
+        ...    std1=np.std(x, ddof=1),
+        ...    std2=np.std(y, ddof=1),
+        ... ).T
+                     critical
+        T            1.256562
+        dof         10.000000
+        T_critical   2.228139
+        d            0.725476
+        d_critical   1.286417
+        g            0.669430
+        g_critical   1.187035
+        b_critical   1.773203
     """
     if paired:
         if n1 != n2:
@@ -387,6 +458,21 @@ def critical_for_two_sample_ttest(
 
     Raises:
         ValueError: If for paired tests, lengths of x and y are not equal.
+
+    Examples:
+        >>> import critical_es_value as cev
+        >>> x = [1,2,3,4,5,6]
+        >>> y = [2,2,2,3,3,3]
+        >>> cev.critical_for_two_sample_ttest(x, y).T
+                     critical
+        T            1.256562
+        dof         10.000000
+        T_critical   2.228139
+        d            0.725476
+        d_critical   1.286417
+        g            0.669430
+        g_critical   1.187035
+        b_critical   1.773203
     """
     if paired:
         if len(x) != len(y):

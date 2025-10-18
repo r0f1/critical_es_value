@@ -11,6 +11,7 @@ from .ttest import (
     critical_for_one_sample_ttest_from_values,
     critical_for_two_sample_ttest,
     critical_for_two_sample_ttest_from_values,
+    determine_welch_correction,
 )
 from .utils import (
     get_alpha,
@@ -26,6 +27,7 @@ __all__ = [
     "critical_for_one_sample_ttest_from_values",
     "critical_for_two_sample_ttest",
     "critical_for_two_sample_ttest_from_values",
+    "determine_welch_correction",
     "get_alpha",
     "get_bias_correction_factor_J",
 ]

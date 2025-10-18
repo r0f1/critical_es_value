@@ -23,9 +23,10 @@ def get_alpha(confidence: float, alternative: str) -> float:
         ValueError: If `confidence` is not in (0, 1) or if `alternative` is not one of "two-sided", "greater", or "less".
 
     Examples:
-        >>> get_alpha(0.95, "two-sided")
+        >>> import critical_es_value as cev
+        >>> cev.get_alpha(0.95, "two-sided")
         0.025
-        >>> get_alpha(0.95, "less")
+        >>> cev.get_alpha(0.95, "less")
         0.05
     """
 
@@ -58,9 +59,10 @@ def get_bias_correction_factor_J(dof: int) -> np.float64:
         ValueError: If dof is <= 1.
 
     Examples:
-        >>> get_bias_correction_factor_J(10)
+        >>> import critical_es_value as cev
+        >>> cev.get_bias_correction_factor_J(10)
         0.92274560805
-        >>> get_bias_correction_factor_J(20)
+        >>> cev.get_bias_correction_factor_J(20)
         0.96194453374
     """
     if dof <= 1:
