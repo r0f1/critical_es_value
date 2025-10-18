@@ -347,10 +347,13 @@
 <tr class="row-even"><td><p><a class="reference internal" href="#critical_es_value.critical_for_two_sample_ttest_from_values" title="critical_es_value.critical_for_two_sample_ttest_from_values"><code class="xref py py-obj docutils literal notranslate"><span class="pre">critical_for_two_sample_ttest_from_values</span></code></a>(...)</p></td>
 <td><p>Calculate critical effect size values for a paired or an unpaired two-sample t-test given t, sample sizes and other parameters.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#critical_es_value.get_alpha" title="critical_es_value.get_alpha"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_alpha</span></code></a>(→ float)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#critical_es_value.determine_welch_correction" title="critical_es_value.determine_welch_correction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">determine_welch_correction</span></code></a>(→ bool)</p></td>
+<td><p>Determine whether to apply Welch's correction for unequal variances.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#critical_es_value.get_alpha" title="critical_es_value.get_alpha"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_alpha</span></code></a>(→ float)</p></td>
 <td><p>Calculate the significance level (alpha) corresponding to a given confidence level.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#critical_es_value.get_bias_correction_factor_J" title="critical_es_value.get_bias_correction_factor_J"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_bias_correction_factor_J</span></code></a>(→ numpy.float64)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#critical_es_value.get_bias_correction_factor_J" title="critical_es_value.get_bias_correction_factor_J"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_bias_correction_factor_J</span></code></a>(→ numpy.float64)</p></td>
 <td><p>Calculate the bias correction factor J for Hedges' g.</p></td>
 </tr>
 </tbody>
@@ -393,6 +396,15 @@
 <dd class="field-odd"><p>pd.DataFrame</p>
 </dd>
 </dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">critical_es_value</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cev</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cev</span><span class="o">.</span><span class="n">critical_for_correlation_test</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="go">          n        r  dof  r_critical      se_r  se_r_critical</span>
+<span class="go">critical  6  0.87831    4    0.811401  0.239046       0.292245</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py function">
@@ -432,6 +444,17 @@
 <dd class="field-even"><p><strong>ValueError</strong> – If <cite>variant</cite> is not one of “ttest” or “ztest”.</p>
 </dd>
 </dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pingouin</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pg</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">critical_es_value</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cev</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">corr</span> <span class="o">=</span> <span class="n">pg</span><span class="o">.</span><span class="n">corr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;pearson&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cev</span><span class="o">.</span><span class="n">critical_for_correlation_test</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="go">          n        r  dof  r_critical      se_r  se_r_critical</span>
+<span class="go">critical  6  0.87831    4    0.811401  0.239046       0.292245</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py function">
@@ -464,6 +487,21 @@
 <dd class="field-odd"><p>pd.DataFrame</p>
 </dd>
 </dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">critical_es_value</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cev</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+<span class="gp">... </span>   <span class="s2">&quot;x1&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">],</span>
+<span class="gp">... </span>   <span class="s2">&quot;x2&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span>
+<span class="gp">... </span>   <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">],</span>
+<span class="gp">... </span><span class="p">})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cev</span><span class="o">.</span><span class="n">critical_for_linear_regression</span><span class="p">(</span><span class="n">df</span><span class="p">[[</span><span class="s2">&quot;x1&quot;</span><span class="p">,</span> <span class="s2">&quot;x2&quot;</span><span class="p">]],</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;y&quot;</span><span class="p">])</span>
+<span class="go">       names          coef  coef_critical</span>
+<span class="go">0  Intercept  2.000000e+00   1.082596e-14</span>
+<span class="go">1         x1  1.000000e+00   1.875111e-15</span>
+<span class="go">2         x2  1.527841e-15   6.404723e-15</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py function">
@@ -492,6 +530,29 @@
 <dd class="field-even"><p><strong>ValueError</strong> – If variant is not one of “ttest” or “ztest”.</p>
 </dd>
 </dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pingouin</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pg</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">critical_es_value</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cev</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+<span class="gp">... </span>   <span class="s2">&quot;x1&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">],</span>
+<span class="gp">... </span>   <span class="s2">&quot;x2&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span>
+<span class="gp">... </span>   <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">],</span>
+<span class="gp">... </span><span class="p">})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span> <span class="o">=</span> <span class="n">pg</span><span class="o">.</span><span class="n">linear_regression</span><span class="p">(</span><span class="n">df</span><span class="p">[[</span><span class="s2">&quot;x1&quot;</span><span class="p">,</span> <span class="s2">&quot;x2&quot;</span><span class="p">]],</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;y&quot;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cev</span><span class="o">.</span><span class="n">critical_for_linear_regression_from_values</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">coeffs</span><span class="o">=</span><span class="n">model</span><span class="p">[</span><span class="s2">&quot;coef&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">coeffs_se</span><span class="o">=</span><span class="n">model</span><span class="p">[</span><span class="s2">&quot;se&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">coeffs_names</span><span class="o">=</span><span class="n">model</span><span class="p">[</span><span class="s2">&quot;names&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">dof</span><span class="o">=</span><span class="n">model</span><span class="o">.</span><span class="n">df_resid_</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">variant</span><span class="o">=</span><span class="s2">&quot;ttest&quot;</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="go">       names          coef  coef_critical</span>
+<span class="go">0  Intercept  2.000000e+00   1.082596e-14</span>
+<span class="go">1         x1  1.000000e+00   1.875111e-15</span>
+<span class="go">2         x2  1.527841e-15   6.404723e-15</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py function">
@@ -526,6 +587,21 @@
 <dd class="field-odd"><p>pd.DataFrame</p>
 </dd>
 </dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">critical_es_value</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cev</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cev</span><span class="o">.</span><span class="n">critical_for_one_sample_ttest</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+<span class="go">            critical</span>
+<span class="go">T           4.582576</span>
+<span class="go">dof         5.000000</span>
+<span class="go">T_critical  2.570582</span>
+<span class="go">d           1.870829</span>
+<span class="go">d_critical  1.049436</span>
+<span class="go">g           1.572897</span>
+<span class="go">g_critical  0.882312</span>
+<span class="go">b_critical  1.963314</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py function">
@@ -563,6 +639,29 @@
 <dd class="field-odd"><p>pd.DataFrame</p>
 </dd>
 </dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pingouin</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pg</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">critical_es_value</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cev</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t_test_result</span> <span class="o">=</span> <span class="n">pg</span><span class="o">.</span><span class="n">ttest</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">paired</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cev</span><span class="o">.</span><span class="n">critical_for_one_sample_ttest_from_values</span><span class="p">(</span>
+<span class="gp">... </span>   <span class="n">t</span><span class="o">=</span><span class="n">t_test_result</span><span class="p">[</span><span class="s2">&quot;T&quot;</span><span class="p">],</span>
+<span class="gp">... </span>   <span class="n">n</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">),</span>
+<span class="gp">... </span>   <span class="n">dof</span><span class="o">=</span><span class="n">t_test_result</span><span class="o">.</span><span class="n">dof</span><span class="p">,</span>
+<span class="gp">... </span>   <span class="n">std</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+<span class="gp">... </span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+<span class="go">            critical</span>
+<span class="go">T           4.582576</span>
+<span class="go">dof         5.000000</span>
+<span class="go">T_critical  2.570582</span>
+<span class="go">d           1.870829</span>
+<span class="go">d_critical  1.049436</span>
+<span class="go">g           1.572897</span>
+<span class="go">g_critical  0.882312</span>
+<span class="go">b_critical  1.963314</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py function">
@@ -606,6 +705,22 @@ Default is “auto”.</p></li>
 <dd class="field-even"><p><strong>ValueError</strong> – If for paired tests, lengths of x and y are not equal.</p>
 </dd>
 </dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">critical_es_value</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cev</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cev</span><span class="o">.</span><span class="n">critical_for_two_sample_ttest</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+<span class="go">             critical</span>
+<span class="go">T            1.256562</span>
+<span class="go">dof         10.000000</span>
+<span class="go">T_critical   2.228139</span>
+<span class="go">d            0.725476</span>
+<span class="go">d_critical   1.286417</span>
+<span class="go">g            0.669430</span>
+<span class="go">g_critical   1.187035</span>
+<span class="go">b_critical   1.773203</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py function">
@@ -661,6 +776,69 @@ is “auto”.</p></li>
 <dd class="field-even"><p><strong>ValueError</strong> – If for paired tests, n1 != n2 or if r12 is None.</p>
 </dd>
 </dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pingouin</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pg</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">critical_es_value</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cev</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t_test_result</span> <span class="o">=</span> <span class="n">pg</span><span class="o">.</span><span class="n">ttest</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">paired</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cev</span><span class="o">.</span><span class="n">critical_for_two_sample_ttest_from_values</span><span class="p">(</span>
+<span class="gp">... </span>   <span class="n">t</span><span class="o">=</span><span class="n">t_test_result</span><span class="p">[</span><span class="s2">&quot;T&quot;</span><span class="p">],</span>
+<span class="gp">... </span>   <span class="n">n1</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">),</span>
+<span class="gp">... </span>   <span class="n">n2</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">),</span>
+<span class="gp">... </span>   <span class="n">dof</span><span class="o">=</span><span class="n">t_test_result</span><span class="o">.</span><span class="n">dof</span><span class="p">,</span>
+<span class="gp">... </span>   <span class="n">paired</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="gp">... </span>   <span class="n">std1</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+<span class="gp">... </span>   <span class="n">std2</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+<span class="gp">... </span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+<span class="go">             critical</span>
+<span class="go">T            1.256562</span>
+<span class="go">dof         10.000000</span>
+<span class="go">T_critical   2.228139</span>
+<span class="go">d            0.725476</span>
+<span class="go">d_critical   1.286417</span>
+<span class="go">g            0.669430</span>
+<span class="go">g_critical   1.187035</span>
+<span class="go">b_critical   1.773203</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="critical_es_value.determine_welch_correction">
+<span class="sig-prename descclassname"><span class="pre">critical_es_value.</span></span><span class="sig-name descname"><span class="pre">determine_welch_correction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">correction</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#critical_es_value.determine_welch_correction" title="Link to this definition">#</a></dt>
+<dd><p>Determine whether to apply Welch’s correction for unequal variances.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>correction</strong> (<em>Union</em><em>[</em><em>bool</em><em>, </em><em>str</em><em>]</em>) – If True, always apply Welch’s correction.
+If False, never apply Welch’s correction.
+If “auto”, apply Welch’s correction only if sample sizes are unequal.</p></li>
+<li><p><strong>n1</strong> (<em>int</em>) – Sample size of group 1.</p></li>
+<li><p><strong>n2</strong> (<em>int</em>) – Sample size of group 2.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Whether to apply Welch’s correction.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If <cite>correction</cite> is not one of True, False, or “auto”.</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">critical_es_value</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cev</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cev</span><span class="o">.</span><span class="n">determine_welch_correction</span><span class="p">(</span><span class="s2">&quot;auto&quot;</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cev</span><span class="o">.</span><span class="n">determine_welch_correction</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cev</span><span class="o">.</span><span class="n">determine_welch_correction</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="go">False</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py function">
@@ -690,9 +868,10 @@ is “auto”.</p></li>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">get_alpha</span><span class="p">(</span><span class="mf">0.95</span><span class="p">,</span> <span class="s2">&quot;two-sided&quot;</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">critical_es_value</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cev</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cev</span><span class="o">.</span><span class="n">get_alpha</span><span class="p">(</span><span class="mf">0.95</span><span class="p">,</span> <span class="s2">&quot;two-sided&quot;</span><span class="p">)</span>
 <span class="go">0.025</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">get_alpha</span><span class="p">(</span><span class="mf">0.95</span><span class="p">,</span> <span class="s2">&quot;less&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cev</span><span class="o">.</span><span class="n">get_alpha</span><span class="p">(</span><span class="mf">0.95</span><span class="p">,</span> <span class="s2">&quot;less&quot;</span><span class="p">)</span>
 <span class="go">0.05</span>
 </pre></div>
 </div>
@@ -719,9 +898,10 @@ is “auto”.</p></li>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">get_bias_correction_factor_J</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">critical_es_value</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cev</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cev</span><span class="o">.</span><span class="n">get_bias_correction_factor_J</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
 <span class="go">0.92274560805</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">get_bias_correction_factor_J</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cev</span><span class="o">.</span><span class="n">get_bias_correction_factor_J</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
 <span class="go">0.96194453374</span>
 </pre></div>
 </div>
@@ -788,6 +968,7 @@ is “auto”.</p></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#critical_es_value.critical_for_one_sample_ttest_from_values"><code class="docutils literal notranslate"><span class="pre">critical_for_one_sample_ttest_from_values()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#critical_es_value.critical_for_two_sample_ttest"><code class="docutils literal notranslate"><span class="pre">critical_for_two_sample_ttest()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#critical_es_value.critical_for_two_sample_ttest_from_values"><code class="docutils literal notranslate"><span class="pre">critical_for_two_sample_ttest_from_values()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#critical_es_value.determine_welch_correction"><code class="docutils literal notranslate"><span class="pre">determine_welch_correction()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#critical_es_value.get_alpha"><code class="docutils literal notranslate"><span class="pre">get_alpha()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#critical_es_value.get_bias_correction_factor_J"><code class="docutils literal notranslate"><span class="pre">get_bias_correction_factor_J()</span></code></a></li>
 </ul>

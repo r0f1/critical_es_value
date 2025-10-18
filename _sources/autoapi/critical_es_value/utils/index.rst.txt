@@ -39,9 +39,10 @@ Module Contents
 
    .. rubric:: Examples
 
-   >>> get_alpha(0.95, "two-sided")
+   >>> import critical_es_value as cev
+   >>> cev.get_alpha(0.95, "two-sided")
    0.025
-   >>> get_alpha(0.95, "less")
+   >>> cev.get_alpha(0.95, "less")
    0.05
 
 
@@ -63,9 +64,10 @@ Module Contents
 
    .. rubric:: Examples
 
-   >>> get_bias_correction_factor_J(10)
+   >>> import critical_es_value as cev
+   >>> cev.get_bias_correction_factor_J(10)
    0.92274560805
-   >>> get_bias_correction_factor_J(20)
+   >>> cev.get_bias_correction_factor_J(20)
    0.96194453374
 
 

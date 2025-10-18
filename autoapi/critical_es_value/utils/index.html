@@ -353,9 +353,10 @@
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">get_alpha</span><span class="p">(</span><span class="mf">0.95</span><span class="p">,</span> <span class="s2">&quot;two-sided&quot;</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">critical_es_value</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cev</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cev</span><span class="o">.</span><span class="n">get_alpha</span><span class="p">(</span><span class="mf">0.95</span><span class="p">,</span> <span class="s2">&quot;two-sided&quot;</span><span class="p">)</span>
 <span class="go">0.025</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">get_alpha</span><span class="p">(</span><span class="mf">0.95</span><span class="p">,</span> <span class="s2">&quot;less&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cev</span><span class="o">.</span><span class="n">get_alpha</span><span class="p">(</span><span class="mf">0.95</span><span class="p">,</span> <span class="s2">&quot;less&quot;</span><span class="p">)</span>
 <span class="go">0.05</span>
 </pre></div>
 </div>
@@ -382,9 +383,10 @@
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">get_bias_correction_factor_J</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">critical_es_value</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cev</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cev</span><span class="o">.</span><span class="n">get_bias_correction_factor_J</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
 <span class="go">0.92274560805</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">get_bias_correction_factor_J</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cev</span><span class="o">.</span><span class="n">get_bias_correction_factor_J</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
 <span class="go">0.96194453374</span>
 </pre></div>
 </div>
