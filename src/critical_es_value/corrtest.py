@@ -37,6 +37,16 @@ def critical_for_correlation_test_from_values(
 
     Raises:
         ValueError: If `variant` is not one of "ttest" or "ztest".
+
+    Examples:
+        >>> import pingouin as pg
+        >>> import critical_es_value as cev
+        >>> x = [1,2,3,4,5,6]
+        >>> y = [2,2,2,3,3,3]
+        >>> corr = pg.corr(x, y, method="pearson").iloc[0]
+        >>> cev.critical_for_correlation_test(x, y)
+                  n        r  dof  r_critical      se_r  se_r_critical
+        critical  6  0.87831    4    0.811401  0.239046       0.292245
     """
     if variant not in ["ttest", "ztest"]:
         raise ValueError("variant must be one of 'ttest' or 'ztest'")
@@ -93,6 +103,14 @@ def critical_for_correlation_test(
             - `se_r`: Standard error of the correlation coefficient
             - `se_r_critical`: Standard error of the critical correlation coefficient
             - `se_rz_critical`: Standard error of the critical Fisher's z-transformed correlation coefficient (only for "ztest" variant)
+
+    Examples:
+        >>> import critical_es_value as cev
+        >>> x = [1,2,3,4,5,6]
+        >>> y = [2,2,2,3,3,3]
+        >>> cev.critical_for_correlation_test(x, y)
+                  n        r  dof  r_critical      se_r  se_r_critical
+        critical  6  0.87831    4    0.811401  0.239046       0.292245
     """
     corr = pingouin.corr(x, y, alternative=alternative, method="pearson").iloc[0]
 

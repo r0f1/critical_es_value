@@ -580,6 +580,7 @@ dev = [
     { name = "pydata-sphinx-theme" },
     { name = "pytest" },
     { name = "pytest-cov" },
+    { name = "scipy-doctest" },
     { name = "sphinx" },
     { name = "sphinx-autoapi" },
     { name = "sphinx-autobuild" },
@@ -599,6 +600,7 @@ dev = [
     { name = "pydata-sphinx-theme", specifier = ">=0.16.1" },
     { name = "pytest", specifier = ">=8.4.2" },
     { name = "pytest-cov", specifier = ">=7.0.0" },
+    { name = "scipy-doctest", specifier = ">=2.0.1" },
     { name = "sphinx", specifier = ">=8.2.3" },
     { name = "sphinx-autoapi", specifier = ">=3.6.1" },
     { name = "sphinx-autobuild", specifier = ">=2025.8.25" },
@@ -2516,6 +2518,19 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/fd/c2/e276a237acb09824822b0ada11b028ed4067fdc367a946730979feacb870/scipy-1.16.2-cp314-cp314t-musllinux_1_2_x86_64.whl", hash = "sha256:b0348d8ddb55be2a844c518cd8cc8deeeb8aeba707cf834db5758fc89b476a2c", size = 38790088, upload-time = "2025-09-11T17:44:53.011Z" },
     { url = "https://files.pythonhosted.org/packages/c6/b4/5c18a766e8353015439f3780f5fc473f36f9762edc1a2e45da3ff5a31b21/scipy-1.16.2-cp314-cp314t-win_amd64.whl", hash = "sha256:26284797e38b8a75e14ea6631d29bda11e76ceaa6ddb6fdebbfe4c4d90faf2f9", size = 39457455, upload-time = "2025-09-11T17:44:58.899Z" },
     { url = "https://files.pythonhosted.org/packages/97/30/2f9a5243008f76dfc5dee9a53dfb939d9b31e16ce4bd4f2e628bfc5d89d2/scipy-1.16.2-cp314-cp314t-win_arm64.whl", hash = "sha256:d2a4472c231328d4de38d5f1f68fdd6d28a615138f842580a8a321b5845cf779", size = 26448374, upload-time = "2025-09-11T17:45:03.45Z" },
+]
+
+[[package]]
+name = "scipy-doctest"
+version = "2.0.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "numpy" },
+    { name = "pytest" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/fd/9d/5f21f318e37c3516b040fc51e267b6628b2590012c16be5ce2366b3af64b/scipy_doctest-2.0.1.tar.gz", hash = "sha256:0436106ab92a243f6a779c10632530a2937919bf55e9b7fdbaf450827db70f1e", size = 63417, upload-time = "2025-08-08T08:32:12.705Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/f5/99/a17f725f45e57efcf5a84494687bba7176e0b5cba7ca0f69161a063fa86d/scipy_doctest-2.0.1-py3-none-any.whl", hash = "sha256:7725b1cb5f4722ab2a77b39f0aadd39726266e682b19e40f96663d7afb2d46b1", size = 65526, upload-time = "2025-08-08T08:32:10.906Z" },
 ]
 
 [[package]]

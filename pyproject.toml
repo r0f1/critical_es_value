@@ -29,6 +29,7 @@ dev = [
     "pydata-sphinx-theme>=0.16.1",
     "pytest>=8.4.2",
     "pytest-cov>=7.0.0",
+    "scipy-doctest>=2.0.1",
     "sphinx>=8.2.3",
     "sphinx-autoapi>=3.6.1",
     "sphinx-autobuild>=2025.8.25",
