@@ -17,7 +17,7 @@ def critical_for_linear_regression_from_values(
     confidence: float = 0.95,
     alternative: str = "two-sided",
     variant: str = "ttest",
-) -> list[float]:
+) -> pd.DataFrame:
     """Calculate critical effect size values given linear regression coefficients.
 
     Args:
@@ -30,7 +30,7 @@ def critical_for_linear_regression_from_values(
         variant (str): The statistical test variant. Either "ttest" or "ztest". Default is "ttest".
 
     Returns:
-        np.ndarray: An array containing critical effect size values for each coefficient.
+        pd.DataFrame: An array containing critical effect size values for each coefficient.
 
     Raises:
         ValueError: If variant is not one of "ttest" or "ztest".
@@ -65,7 +65,7 @@ def critical_for_linear_regression(
     alternative: str = "two-sided",
     variant: str = "ttest",
     **kwargs,
-):
+) -> pd.DataFrame:
     """Calculate critical effect size values for linear regression coefficients.
 
     Args:
@@ -74,7 +74,7 @@ def critical_for_linear_regression(
         confidence (float): Confidence level between 0 and 1 (exclusive). Default is 0.95.
         alternative (str): The alternative hypothesis. Either "two-sided", "greater", or "less". Default is "two-sided".
         variant (str): The statistical test variant. Either "ttest" or "ztest". Default is "ttest".
-        \*\*kwargs: Additional keyword arguments to pass to pingouin.linear_regression.
+        **kwargs: Additional keyword arguments to pass to pingouin.linear_regression.
 
     Returns:
         pd.DataFrame: Returns a DataFrame with the following columns:
