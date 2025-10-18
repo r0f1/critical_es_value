@@ -13,7 +13,7 @@ def determine_welch_correction(correction: Union[bool, str], n1: int, n2: int) -
     """Determine whether to apply Welch's correction for unequal variances.
 
     Args:
-        correction (bool or str): If True, always apply Welch's correction.
+        correction (Union[bool, str]): If True, always apply Welch's correction.
                                   If False, never apply Welch's correction.
                                   If "auto", apply Welch's correction only if sample sizes are unequal.
         n1 (int): Sample size of group 1.
@@ -39,7 +39,7 @@ def critical_for_one_sample_ttest_from_values(
     confidence: float = 0.95,
     alternative: str = "two-sided",
     std: Optional[float] = None,
-):
+) -> pd.DataFrame:
     """Calculate critical effect size values for a one-sample t-test given t, sample size and other parameters.
 
     Args:
@@ -151,7 +151,7 @@ def _critical_for_two_sample_ttest_unpaired_from_values(
         dof (int): Degrees of freedom.
         std1 (Optional[float]): Standard deviation of group 1. If None, b_critical will not be calculated. Default is None.
         std2 (Optional[float]): Standard deviation of group 2. If None, b_critical will not be calculated. Default is None.
-        correction (bool): Specify whether or not to correct for unequal variances using Welch separate variances
+        correction (Union[bool, str]): Specify whether or not to correct for unequal variances using Welch separate variances
             T-test. If "auto", it will automatically uses Welch T-test when the sample sizes are unequal. Default
             is "auto".
         confidence (float): Confidence level between 0 and 1 (exclusive). Default is 0.95.
@@ -302,7 +302,7 @@ def critical_for_two_sample_ttest_from_values(
         paired (bool): Whether the samples are paired. Default is False.
         r12 (Optional[float]): For paired T-test, Pearson correlation between the two groups. For unpaired T-test,
             this parameter is ignored. Default is None.
-        correction (bool): For unpaired two sample T-tests, specify whether or not to correct for unequal variances
+        correction (Union[bool, str]): For unpaired two sample T-tests, specify whether or not to correct for unequal variances
             using Welch separate variances T-test. If "auto", it will automatically uses Welch T-test when the sample
             sizes are unequal. For paired T-tests, this parameter is ignored and no correction is performed. Default
             is "auto".
@@ -323,6 +323,9 @@ def critical_for_two_sample_ttest_from_values(
            - `gz`: Hedges' gz (only for paired tests)
            - `gz_critical`: Critical value for Hedges' gz (only for paired tests)
            - `b_critical`: Critical value for the raw mean difference
+
+    Raises:
+        ValueError: If for paired tests, n1 != n2 or if r12 is None.
     """
     if paired:
         if n1 != n2:
@@ -367,10 +370,10 @@ def critical_for_two_sample_ttest(
         x (ArrayLike): Sample data for group 1.
         y (ArrayLike): Sample data for group 2.
         paired (bool): Whether the samples are paired. Default is False.
-        correction (bool): For unpaired two sample T-tests, specify whether or not to correct for unequal variances
-            using Welch separate variances T-test. If "auto", it will automatically uses Welch T-test when the sample
-            sizes are unequal. For paired T-tests, this parameter is ignored and no correction is performed. Default
-            is "auto".
+        correction (Union[bool, str]): For unpaired two sample T-tests, specify whether or not to correct for unequal
+            variances using Welch separate variances T-test. If "auto", it will automatically uses Welch T-test when
+            the sample sizes are unequal. For paired T-tests, this parameter is ignored and no correction is performed.
+            Default is "auto".
         confidence (float): Confidence level between 0 and 1 (exclusive). Default is 0.95.
         alternative (str): The alternative hypothesis. Either "two-sided", "greater", or "less". Default is "two-sided".
 
@@ -384,6 +387,9 @@ def critical_for_two_sample_ttest(
            - `g`: Hedges' g
            - `g_critical`: Critical value for Hedges' g
            - `b_critical`: Critical value for the raw mean difference
+
+    Raises:
+        ValueError: If for paired tests, lengths of x and y are not equal.
     """
     if paired:
         if len(x) != len(y):

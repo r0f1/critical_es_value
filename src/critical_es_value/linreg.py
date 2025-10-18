@@ -30,7 +30,7 @@ def critical_for_linear_regression_from_values(
         variant (str): The statistical test variant. Either "ttest" or "ztest". Default is "ttest".
 
     Returns:
-        np.ndarray: An array containing critical effect size values for each coefficient.
+        pd.DataFrame: An array containing critical effect size values for each coefficient.
 
     Raises:
         ValueError: If variant is not one of "ttest" or "ztest".
@@ -65,7 +65,7 @@ def critical_for_linear_regression(
     alternative: str = "two-sided",
     variant: str = "ttest",
     **kwargs,
-):
+) -> pd.DataFrame:
     """Calculate critical effect size values for linear regression coefficients.
 
     Args:

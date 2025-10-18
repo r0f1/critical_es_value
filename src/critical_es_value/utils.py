@@ -20,8 +20,7 @@ def get_alpha(confidence: float, alternative: str) -> float:
         float: The significance level (alpha).
 
     Raises:
-        ValueError: If `confidence` is not in (0, 1)
-        ValueError: If `alternative` is not one of "two-sided", "greater", or "less".
+        ValueError: If `confidence` is not in (0, 1) or if `alternative` is not one of "two-sided", "greater", or "less".
 
     Examples:
         >>> get_alpha(0.95, "two-sided")
@@ -54,6 +53,9 @@ def get_bias_correction_factor_J(dof: int) -> np.float64:
 
     Returns:
         np.float64: The bias correction factor J.
+
+    Raises:
+        ValueError: If dof is <= 1.
 
     Examples:
         >>> get_bias_correction_factor_J(10)
